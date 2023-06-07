@@ -2,11 +2,12 @@ import styled from "@emotion/styled";
 
 const Carousel = styled.ul`
   display: flex;
-  padding-left: 1rem;
-  overflow-x: scroll;
+  overflow-x: auto;
+  white-space: nowrap;
   width: 100%;
   padding-top: 0.3rem;
   padding-bottom: 0.6rem;
+  gap: 10px;
 `;
 
 export default { Carousel };
