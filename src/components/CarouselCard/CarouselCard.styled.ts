@@ -3,9 +3,10 @@ import { Paper, ButtonBase } from "@mui/material";
 
 const Card = styled(Paper)<{ as: string }>`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  width: 600px;
+  min-width: 300px;
   height: 200px;
   list-style: none;
+  display: inline-block;
 `;
 
 const CardBottomBanner = styled.div`
@@ -22,7 +23,7 @@ const CardBottomBanner = styled.div`
   dt {
     margin-left: 10px;
     font-size: 12px;
-    color: DFDFDF;
+    color: #dfdfdf;
   }
 `;
 
