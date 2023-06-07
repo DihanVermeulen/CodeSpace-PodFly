@@ -44,4 +44,18 @@ const Description = styled.dl`
   text-align: left;
 `;
 
-export default { Card, StyledButtonBase, CardBottomBanner, Description };
+const BlurredBackground = styled.div`
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  height: 100%;
+  width: 100%;
+  background-color: #d9d9d9;
+`;
+
+export default {
+  Card,
+  StyledButtonBase,
+  CardBottomBanner,
+  Description,
+  BlurredBackground,
+};
