@@ -7,4 +7,4 @@ const Carousel = styled.ul`
   width: 100%;
 `;
 
-export default { Carousel, Card };
+export default { Carousel };
