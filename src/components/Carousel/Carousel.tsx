@@ -1,5 +1,6 @@
 import { CarouselCard } from "../CarouselCard";
 import StyledComponents from "./Carousel.styled";
+import { useState } from "react";
 
 export type Podcast = {
   id: number;
@@ -16,9 +17,9 @@ export type Carousel = {
 };
 
 export const Carousel = (props: Carousel) => {
-  const { data } = props;
+  const { data: propsData } = props;
+  const [data] = useState(propsData);
 
-  console.log(data);
   return (
     <StyledComponents.Carousel>
       {data &&
