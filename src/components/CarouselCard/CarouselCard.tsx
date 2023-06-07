@@ -8,12 +8,18 @@ type CarouselCard = {
 
 export const CarouselCard = (props: CarouselCard) => {
   const { image, title, genres } = props;
-  const { Card, CardBottomBanner, StyledButtonBase, Description } =
-    StyledComponents;
+  const {
+    Card,
+    CardBottomBanner,
+    StyledButtonBase,
+    Description,
+    BlurredBackground,
+  } = StyledComponents;
   return (
     <Card as="li">
       <StyledButtonBase backgroundimage={image}>
         <CardBottomBanner>
+          <BlurredBackground></BlurredBackground>
           <Description>
             <dd style={{ textAlign: "left" }}>{title}</dd>
             <dt>{genres}</dt>
