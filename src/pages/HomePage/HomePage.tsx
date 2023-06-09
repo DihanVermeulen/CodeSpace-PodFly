@@ -4,6 +4,9 @@ import { Carousel, Podcast } from "../../components/Carousel";
 import { useState } from "react";
 import { useEffectOnce } from "react-use";
 import { mocks } from "../../components/Carousel/Carousel.mock";
+import { Podcast } from "../../@types/podcast";
+import { DiscoverList } from "../../components/DiscoverList";
+import utilsStyles from "../../styles/utils.styles";
 export const HomePage = () => {
   const [carouselPodcasts, setCarouselPodcasts] = useState<Podcast[] | null>(
     null
