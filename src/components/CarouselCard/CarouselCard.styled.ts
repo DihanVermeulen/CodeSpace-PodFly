@@ -7,6 +7,7 @@ const Card = styled(Paper)<{ as: string }>`
   height: 200px;
   list-style: none;
   display: inline-block;
+  border-radius: 20px;
 `;
 
 const CardBottomBanner = styled.div`
@@ -38,6 +39,7 @@ const StyledButtonBase = styled(ButtonBase)<{ backgroundimage: string }>`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  border-radius: 20px;
 `;
 
 const Description = styled.dl`
