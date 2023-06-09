@@ -50,10 +50,10 @@ export const Header = () => {
           </StyledComponents.LinkBlock>
         </div>
         <Box display={"flex"}>
-          <IconButton color="inherit" aria-label="search" sx={{ mr: 2 }}>
+          <IconButton color="inherit" aria-label="search" sx={{ mr: 1 }}>
             <Search />
           </IconButton>
-          <IconButton color="inherit" aria-label="profile" sx={{ mr: 2 }}>
+          <IconButton color="inherit" aria-label="profile" sx={{ mr: 1 }}>
             <Person />
           </IconButton>
         </Box>
