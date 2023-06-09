@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 
 const Carousel = styled.ul`
+  list-style-type: none;
+  padding: 0;
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
