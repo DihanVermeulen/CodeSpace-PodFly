@@ -16,8 +16,8 @@ export const DiscoverList = (props: DiscoverList) => {
       {data ? (
         <Masonry columns={2}>
           {data.map((item, index) => (
-            <Link to={`/view/${item.id}`}>
-              <Preview key={index} title={item.title} image={item.image} />
+            <Link key={index} to={`/view/${item.id}`}>
+              <Preview title={item.title} image={item.image} />
             </Link>
           ))}
         </Masonry>
