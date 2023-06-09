@@ -2,10 +2,10 @@ export type Podcast = {
   id: number;
   title: string;
   image: string;
-  description?: string;
-  seasons?: number;
+  description: string;
+  seasons: number;
   genres: string[];
-  updated?: Date;
+  updated: Date;
 };
 
 export type PodcastResponse = {
