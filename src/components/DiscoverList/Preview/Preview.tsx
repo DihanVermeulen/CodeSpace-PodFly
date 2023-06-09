@@ -3,7 +3,6 @@ import StyledComponents from "./Preview.styled";
 export type Preview = {
   image: string;
   title: string;
-  // click: () => void;
 };
 
 export const Preview = (props: Preview) => {
