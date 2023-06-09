@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Podcast } from "../../@types/podcast";
-import { Masonry } from "@mui/lab";
+import { Grid } from "@mui/material";
 import { Preview } from "./Preview";
 import StyledComponents from "./DiscoverList.styled";
 
@@ -15,13 +15,21 @@ export const DiscoverList = (props: DiscoverList) => {
   return (
     <>
       {data ? (
-        <Masonry columns={2}>
+        <Grid container columns={{ xs: 2, sm: 3, md: 4 }}>
           {data.map((item, index) => (
-            <StyledLink key={index} to={`/view/${item.id}`}>
-              <Preview title={item.title} image={item.image} />
-            </StyledLink>
+            <Grid
+              key={index}
+              item
+              xs={1}
+              justifyContent={"center"}
+              display={"flex"}
+            >
+              <StyledLink to={`/view/${item.id}`}>
+                <Preview title={item.title} image={item.image} />
+              </StyledLink>
+            </Grid>
           ))}
-        </Masonry>
+        </Grid>
       ) : (
         <div>loading...</div>
       )}
