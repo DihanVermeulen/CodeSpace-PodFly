@@ -22,6 +22,8 @@ const StyledLink = styled(Link)`
 const LinkBlock = styled.ul`
   display: flex;
   list-style: none;
+  margin: 0;
+  padding: 0;
 
   & li {
     margin-left: 10px;
