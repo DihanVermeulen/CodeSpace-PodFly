@@ -1,6 +1,6 @@
 import { CssBaseline } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { DiscoverPage, HomePage, Root } from "./pages";
+import { DiscoverPage, FavouritesPage, HomePage, Root } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "/discover",
         element: <DiscoverPage />,
+      },
+      {
+        path: "/favourites",
+        element: <FavouritesPage />,
       },
     ],
   },
