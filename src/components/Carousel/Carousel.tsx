@@ -1,7 +1,6 @@
 import { CarouselCard } from "../CarouselCard";
 import StyledComponents from "./Carousel.styled";
 import { useState } from "react";
-import { CssBaseline } from "@mui/material";
 import { Podcast } from "../../@types/podcast";
 
 export type Carousel = {
@@ -13,7 +12,6 @@ export const Carousel = (props: Carousel) => {
 
   return (
     <>
-      <CssBaseline />
       <StyledComponents.Carousel>
         {data &&
           data.map((item) => (
