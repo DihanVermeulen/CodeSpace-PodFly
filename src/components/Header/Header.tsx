@@ -1,4 +1,4 @@
-import { IconButton, CssBaseline } from "@mui/material";
+import { IconButton, CssBaseline, Box } from "@mui/material";
 import { Menu, Search, Person } from "@mui/icons-material";
 import StyledComponents from "./Header.styled";
 import { useLocation } from "react-router-dom";
@@ -28,27 +28,35 @@ export const Header = () => {
               </StyledComponents.StyledLink>
             </li>
             <li>
-              <StyledComponents.StyledLink to={"/discover"}   style={{
+              <StyledComponents.StyledLink
+                to={"/discover"}
+                style={{
                   color: location.pathname === "/discover" ? "#AAF1CF" : "",
-                }}>
+                }}
+              >
                 discover
               </StyledComponents.StyledLink>
             </li>
             <li>
-              <StyledComponents.StyledLink to={"/favourites"}>
+              <StyledComponents.StyledLink
+                to={"/favourites"}
+                style={{
+                  color: location.pathname === "/favourites" ? "#AAF1CF" : "",
+                }}
+              >
                 favourites
               </StyledComponents.StyledLink>
             </li>
           </StyledComponents.LinkBlock>
         </div>
-        <div>
+        <Box display={"flex"}>
           <IconButton color="inherit" aria-label="search" sx={{ mr: 2 }}>
             <Search />
           </IconButton>
           <IconButton color="inherit" aria-label="profile" sx={{ mr: 2 }}>
             <Person />
           </IconButton>
-        </div>
+        </Box>
       </StyledComponents.Header>
     </>
   );
