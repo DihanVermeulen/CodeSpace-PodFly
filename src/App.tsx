@@ -1,6 +1,7 @@
 import { CssBaseline } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { DiscoverPage, FavouritesPage, HomePage, Root } from "./pages";
+import { ViewPodcast } from "./components/ViewPodcast";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/view",
+    path: "/view/:id",
+    element: <ViewPodcast />,
   },
 ]);
 
