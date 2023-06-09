@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-const Space = styled.div<{ height: number }>`
+const Space = styled.div<{ height: string }>`
   height: ${(props) => props.height};
 `;
 
