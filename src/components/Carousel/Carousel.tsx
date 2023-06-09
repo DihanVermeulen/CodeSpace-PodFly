@@ -1,6 +1,7 @@
 import { CarouselCard } from "../CarouselCard";
 import StyledComponents from "./Carousel.styled";
 import { useState } from "react";
+import { CssBaseline } from "@mui/material";
 
 export type Podcast = {
   id: number;
@@ -21,16 +22,19 @@ export const Carousel = (props: Carousel) => {
   const [data] = useState(propsData);
 
   return (
-    <StyledComponents.Carousel>
-      {data &&
-        data.map((item) => (
-          <CarouselCard
-            key={item.id}
-            genres={item.genres}
-            title={item.title}
-            image={item.image}
-          />
-        ))}
-    </StyledComponents.Carousel>
+    <>
+      <CssBaseline />
+      <StyledComponents.Carousel>
+        {data &&
+          data.map((item) => (
+            <CarouselCard
+              key={item.id}
+              genres={item.genres}
+              title={item.title}
+              image={item.image}
+            />
+          ))}
+      </StyledComponents.Carousel>
+    </>
   );
 };
