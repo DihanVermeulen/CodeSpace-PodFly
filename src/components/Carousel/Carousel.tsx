@@ -1,4 +1,4 @@
-import { CarouselCard } from "../CarouselCard";
+import { CarouselCard } from "./CarouselCard";
 import StyledComponents from "./Carousel.styled";
 import { useState } from "react";
 import { Podcast } from "../../@types/podcast";
