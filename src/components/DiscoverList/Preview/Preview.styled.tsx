@@ -4,12 +4,15 @@ import "@fontsource/poppins/500.css";
 
 const Label = styled(Typography)<{ as: string }>`
   text-align: center;
-  line-clamp: 3;
+  display: -webkit-box;
   -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   font-size: 14px;
   width: 10rem;
   font-family: "Poppins";
   font-weight: 500;
+  text-decoration: none;
 `;
 
 const Card = styled(Paper)`
