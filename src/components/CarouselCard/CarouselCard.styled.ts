@@ -8,6 +8,7 @@ const Card = styled(Paper)<{ as: string }>`
   list-style: none;
   display: inline-block;
   border-radius: 20px;
+  margin-left: 10px;
 `;
 
 const CardBottomBanner = styled.div`
