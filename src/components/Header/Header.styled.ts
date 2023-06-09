@@ -12,7 +12,23 @@ const Header = styled.header`
   z-index: 999;
   background-color: rgba(255, 255, 255);
 `;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #a1a1a1;
+`;
+
+const LinkBlock = styled.ul`
+  display: flex;
+  list-style: none;
+
+  & li {
+    margin-left: 10px;
+    cursor: pointer;
+    & :hover {
+      color: #d7a6b3;
+    }
   }
 `;
 
-export default { Header };
+export default { Header, StyledLink, LinkBlock };
