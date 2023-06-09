@@ -1,6 +1,6 @@
 import { CarouselCard } from "./CarouselCard";
 import StyledComponents from "./Carousel.styled";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Podcast } from "../../@types/podcast";
 
 export type Carousel = {
@@ -8,12 +8,20 @@ export type Carousel = {
 };
 
 export const Carousel = (props: Carousel) => {
-  const [data] = useState(props.data);
+  const [data] = useState<Podcast[]>(props.data);
+  const [phase, setPhase] = useState("LOADING");
+
+  useEffect(() => {
+    if (data.length > 0) {
+      console.log("data length is bigger than zero");
+      setPhase("LISTING");
+    }
+  }, [props.data]);
 
   return (
     <>
       <StyledComponents.Carousel>
-        {data &&
+        {phase === "LISTING" &&
           data.map((item) => (
             <CarouselCard
               key={item.id}
