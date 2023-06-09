@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Podcast } from "../../@types/podcast";
 import { Masonry } from "@mui/lab";
 import { Preview } from "./Preview";
-import { Link } from "react-router-dom";
+import StyledComponents from "./DiscoverList.styled";
 
 export type DiscoverList = {
   data: Podcast[];
@@ -10,15 +10,16 @@ export type DiscoverList = {
 
 export const DiscoverList = (props: DiscoverList) => {
   const [data] = useState(props.data);
+  const { StyledLink } = StyledComponents;
 
   return (
     <>
       {data ? (
         <Masonry columns={2}>
           {data.map((item, index) => (
-            <Link key={index} to={`/view/${item.id}`}>
+            <StyledLink key={index} to={`/view/${item.id}`}>
               <Preview title={item.title} image={item.image} />
-            </Link>
+            </StyledLink>
           ))}
         </Masonry>
       ) : (
