@@ -16,5 +16,24 @@ export type PodcastResponse = {
   seasons: number;
   genres: number[];
   updated: string;
+};
 
-}
+type IndividualPodcastEpisode = {
+  title: string;
+  description: string;
+  episode: number;
+  file: string;
+};
+
+type IndividualPodcastSeason = {
+  season: number;
+  title: string;
+  image: string;
+  episodes: IndividualPodcastEpisode[];
+};
+
+type IndividualPodcast = {
+  id: string;
+  title: string;
+  seasons: IndividualPodcastSeason[];
+};
