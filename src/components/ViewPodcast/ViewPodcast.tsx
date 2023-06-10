@@ -1,3 +1,6 @@
 export const ViewPodcast = () => {
-  return <div>ViewPodcast</div>;
+  const { id } = useParams<{ id: string }>();
+
+  const [podcasts, setPodcasts] = useState();
+
 };
