@@ -13,7 +13,6 @@ export const Carousel = (props: Carousel) => {
 
   useEffect(() => {
     if (data.length > 0) {
-      console.log("data length is bigger than zero");
       setPhase("LISTING");
     }
   }, [props.data]);
