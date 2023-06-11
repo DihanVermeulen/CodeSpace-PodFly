@@ -1,7 +1,8 @@
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { DiscoverPage, FavouritesPage, HomePage, Root } from "./pages";
 import { ViewPodcast } from "./pages/ViewPodcastPage";
+import { theme } from "./styles";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +32,10 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <>
-      <CssBaseline />
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </>
   );
 };
