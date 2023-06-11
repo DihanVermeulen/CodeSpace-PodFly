@@ -1,7 +1,6 @@
 import { Typography, Paper } from "@mui/material";
 import styled from "@emotion/styled";
 import "@fontsource/poppins/500.css";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Label = styled(Typography)<{
   as: string;
@@ -32,7 +31,7 @@ const Card = styled(Paper)`
   border-radius: 15px;
 `;
 
-const Image = styled(LazyLoadImage)<{ src: string }>`
+const Image = styled.img<{ src: string }>`
   width: 10rem;
   height: 10rem;
   border-radius: 15px;
