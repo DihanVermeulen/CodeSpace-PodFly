@@ -23,9 +23,7 @@ const api = createApi();
 export const ViewPodcast = () => {
   const { id } = useParams<{ id: string }>();
 
-  const [podcasts, setPodcasts] = useState<IndividualPodcast | null | Error>(
-    null
-  );
+  const [podcasts, setPodcasts] = useState<IndividualPodcast | null>(null);
   const [readMore, setReadMore] = useState<boolean>(false);
   const [selectedSeason, setSelectedSeason] = useState<number>(1);
   const podcastPreviews = useStore(store, (state) => state.list);
@@ -46,6 +44,9 @@ export const ViewPodcast = () => {
 
     handleFetchIndividualPodcast();
   }, [id]);
+  if (podcasts) {
+    console.log(podcasts.seasons);
+  }
 
   const handleSetSeason = (season: number | string) => {
     if (!season) throw new Error("No season was passed");
@@ -61,9 +62,9 @@ export const ViewPodcast = () => {
     <>
       <Box>
         <Space height="4rem" />
-        <Grid container columns={2} spacing={2}>
-          {active ? (
-            <>
+        {active ? (
+          <>
+            <Grid container columns={2} spacing={2} height={200}>
               <Grid
                 item
                 display={"flex"}
@@ -73,7 +74,7 @@ export const ViewPodcast = () => {
               >
                 <StyledImage src={active.image} />
               </Grid>
-              <CenteredGrid item  xs={1}>
+              <CenteredGrid item xs={1}>
                 <Title
                   fontSize={18}
                   variant="h1"
@@ -83,33 +84,41 @@ export const ViewPodcast = () => {
                   {active.title}
                 </Title>
               </CenteredGrid>
-              <Box padding={2}>
-                <Typography
-                  sx={{
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    textAlign: "center",
-                    overflow: "hidden",
-                    WebkitLineClamp: readMore ? "" : 3,
-                    textOverflow: "ellipsis",
-                    color: "#a1a1a1",
-                  }}
-                >
-                  {active.description}{" "}
-                </Typography>
-                <ReadMoreButton onClick={() => setReadMore(!readMore)}>
-                  {readMore ? "Read Less" : "Read More"}
-                </ReadMoreButton>
-              </Box>
-            </>
-          ) : (
-            <>
-              <Grid item padding={1}>
+            </Grid>
+            <Box padding={2}>
+              <Typography
+                sx={{
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  textAlign: "center",
+                  overflow: "hidden",
+                  WebkitLineClamp: readMore ? "" : 3,
+                  textOverflow: "ellipsis",
+                  color: "#a1a1a1",
+                }}
+              >
+                {active.description}{" "}
+              </Typography>
+              <ReadMoreButton onClick={() => setReadMore(!readMore)}>
+                {readMore ? "Read Less" : "Read More"}
+              </ReadMoreButton>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Grid container columns={2} spacing={2}>
+              <Grid
+                item
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                xs={1}
+              >
                 <Skeleton
                   variant="rectangular"
                   sx={{ borderRadius: "20px" }}
-                  width={120}
-                  height={120}
+                  width={"10rem"}
+                  height={"10rem"}
                 />
               </Grid>
               <Grid
@@ -117,28 +126,50 @@ export const ViewPodcast = () => {
                 display={"flex"}
                 flexDirection={"column"}
                 justifyContent={"center"}
-                padding={1}
+                xs={1}
               >
-                <Skeleton width={200} height={20} />
+                <Skeleton width={160} height={30} />
+                <Skeleton width={120} height={30} />
               </Grid>
-            </>
-          )}
-        </Grid>
+            </Grid>
+            <Box
+              padding={2}
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+            >
+              <Skeleton width={"80%"} />
+              <Skeleton width={"90%"} />
+              <Skeleton width={"70%"} />
+            </Box>
+          </>
+        )}
+
         <Box>
           <Box display={"flex"} alignItems={"center"}>
-            <Typography variant="body1" marginRight={1}>
+            <Typography
+              fontFamily={"Poppins"}
+              fontWeight={600}
+              variant="body1"
+              marginRight={1}
+              marginLeft={1}
+            >
               Season
             </Typography>
             <FormControl size="small">
-              <StyledSelect
-                value={selectedSeason}
-                onChange={(event: any) => handleSetSeason(event.target.value)}
-                sx={{ border: "none", outline: "none" }}
-              >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-              </StyledSelect>
+              {podcasts && (
+                <StyledSelect
+                  value={selectedSeason}
+                  onChange={(event: any) => handleSetSeason(event.target.value)}
+                  sx={{ border: "none", outline: "none" }}
+                >
+                  {podcasts.seasons.map((item) => (
+                    <MenuItem key={item.season} value={1}>
+                      {item.season}
+                    </MenuItem>
+                  ))}
+                </StyledSelect>
+              )}
             </FormControl>
           </Box>
         </Box>
