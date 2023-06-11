@@ -1,24 +1,43 @@
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Skeleton,
+  MenuItem,
+  FormControl,
+} from "@mui/material";
 import { useParams } from "react-router-dom";
 import { createApi } from "../../api";
 import { useEffect, useState } from "react";
 import { IndividualPodcast } from "../../@types/podcast";
 import UtilStyles from "../../styles/utils.styles";
+import { useStore } from "zustand";
+import { store } from "../../model";
+import StyledComponents from "./ViewPodcastPage.styles";
+const { Space } = UtilStyles;
+const { ReadMoreButton, CenteredGrid, StyledSelect, StyledImage, Title } =
+  StyledComponents;
 
 const api = createApi();
 
 export const ViewPodcast = () => {
   const { id } = useParams<{ id: string }>();
-  const { Space } = UtilStyles;
 
-  const [podcasts, setPodcasts] = useState<IndividualPodcast | null>(null);
+  const [podcasts, setPodcasts] = useState<IndividualPodcast | null | Error>(
+    null
+  );
+  const [readMore, setReadMore] = useState<boolean>(false);
+  const [selectedSeason, setSelectedSeason] = useState<number>(1);
+  const podcastPreviews = useStore(store, (state) => state.list);
+  const active = podcastPreviews.find(
+    ({ id: currentId }) => typeof id !== "undefined" && currentId === id
+  );
 
   useEffect(() => {
     const handleFetchIndividualPodcast = async () => {
       if (id)
         try {
-          const data: IndividualPodcast | Error =
-            await api.getIndividualPodcastList(id);
+          const data = await api.getIndividualPodcastList(id);
           setPodcasts(data);
         } catch (error) {
           console.error("Error fetching individual podcast:", error);
@@ -28,23 +47,102 @@ export const ViewPodcast = () => {
     handleFetchIndividualPodcast();
   }, [id]);
 
+  const handleSetSeason = (season: number | string) => {
+    if (!season) throw new Error("No season was passed");
+    if (typeof season === "string") {
+      const parsedSeason = parseInt(season);
+      setSelectedSeason(parsedSeason);
+    } else {
+      setSelectedSeason(season);
+    }
+  };
+
   return (
     <>
-      {podcasts ? (
+      <Box>
+        <Space height="4rem" />
+        <Grid container columns={2} spacing={2}>
+          {active ? (
+            <>
+              <Grid
+                item
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                xs={1}
+              >
+                <StyledImage src={active.image} />
+              </Grid>
+              <CenteredGrid item  xs={1}>
+                <Title
+                  fontSize={18}
+                  variant="h1"
+                  sx={{ lineBreak: 2 }}
+                  fontFamily={"Poppins"}
+                >
+                  {active.title}
+                </Title>
+              </CenteredGrid>
+              <Box padding={2}>
+                <Typography
+                  sx={{
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    textAlign: "center",
+                    overflow: "hidden",
+                    WebkitLineClamp: readMore ? "" : 3,
+                    textOverflow: "ellipsis",
+                    color: "#a1a1a1",
+                  }}
+                >
+                  {active.description}{" "}
+                </Typography>
+                <ReadMoreButton onClick={() => setReadMore(!readMore)}>
+                  {readMore ? "Read Less" : "Read More"}
+                </ReadMoreButton>
+              </Box>
+            </>
+          ) : (
+            <>
+              <Grid item padding={1}>
+                <Skeleton
+                  variant="rectangular"
+                  sx={{ borderRadius: "20px" }}
+                  width={120}
+                  height={120}
+                />
+              </Grid>
+              <Grid
+                item
+                display={"flex"}
+                flexDirection={"column"}
+                justifyContent={"center"}
+                padding={1}
+              >
+                <Skeleton width={200} height={20} />
+              </Grid>
+            </>
+          )}
+        </Grid>
         <Box>
-          <Space height="4rem"/>
-          <Box display={"flex"}>
-            <Box>
-              <img src={podcasts.seasons[0].image} width={120} />
-            </Box>
-            <Box display={"flex"} flexDirection={"column"}>
-              <Typography>{podcasts.title}</Typography>
-            </Box>
+          <Box display={"flex"} alignItems={"center"}>
+            <Typography variant="body1" marginRight={1}>
+              Season
+            </Typography>
+            <FormControl size="small">
+              <StyledSelect
+                value={selectedSeason}
+                onChange={(event: any) => handleSetSeason(event.target.value)}
+                sx={{ border: "none", outline: "none" }}
+              >
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+              </StyledSelect>
+            </FormControl>
           </Box>
         </Box>
-      ) : (
-        <div>loading...</div>
-      )}
+      </Box>
     </>
   );
 };
