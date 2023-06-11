@@ -10,6 +10,7 @@ export type DiscoverList = {
 
 export const DiscoverList = (props: DiscoverList) => {
   const [data] = useState(props.data);
+
   const { StyledLink } = StyledComponents;
 
   return (
@@ -25,7 +26,11 @@ export const DiscoverList = (props: DiscoverList) => {
               display={"flex"}
             >
               <StyledLink to={`/view/${item.id}`}>
-                <Preview title={item.title} image={item.image} />
+                <Preview
+                  title={item.title}
+                  image={item.image}
+                  seasons={item.seasons}
+                />
               </StyledLink>
             </Grid>
           ))}
