@@ -1,8 +1,5 @@
 import StyledComponents from "./Preview.styled";
-import { useState } from "react";
-import { Skeleton } from "@mui/material";
 const { Label, Card, Image } = StyledComponents;
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export type Preview = {
   image: string;
