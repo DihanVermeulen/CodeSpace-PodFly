@@ -1,8 +1,13 @@
 import { Typography, Paper } from "@mui/material";
 import styled from "@emotion/styled";
 import "@fontsource/poppins/500.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const Label = styled(Typography)<{ as: string }>`
+const Label = styled(Typography)<{
+  as: string;
+  color?: string;
+  fontSize: string;
+}>`
   text-align: center;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -14,6 +19,8 @@ const Label = styled(Typography)<{ as: string }>`
   font-weight: 500;
   text-decoration: none;
   margin-top: 0.6rem;
+  color: ${(props) => props.color};
+  font-size: ${(props) => props.fontSize};
 `;
 
 const Card = styled(Paper)`
@@ -25,7 +32,7 @@ const Card = styled(Paper)`
   border-radius: 15px;
 `;
 
-const Image = styled.img<{ src: string }>`
+const Image = styled(LazyLoadImage)<{ src: string }>`
   width: 10rem;
   height: 10rem;
   border-radius: 15px;
