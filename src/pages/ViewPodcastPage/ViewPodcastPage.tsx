@@ -54,14 +54,10 @@ export const ViewPodcast = () => {
     console.log(podcasts.seasons);
   }
 
-  const handleSetSeason = (season: number | string) => {
-    if (!season) throw new Error("No season was passed");
-    if (typeof season === "string") {
-      const parsedSeason = parseInt(season);
-      setSelectedSeason(parsedSeason);
-    } else {
-      setSelectedSeason(season);
-    }
+  const handleSetSelectedSeason = (event: { target: { value: any } }) => {
+    const value = event.target.value;
+    const season = podcasts?.seasons.find((season) => season.season === value);
+    setSelectedSeason(season);
   };
 
   return (
