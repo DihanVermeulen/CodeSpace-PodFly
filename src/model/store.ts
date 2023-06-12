@@ -1,9 +1,9 @@
 import { createStore as createZustandStore, StoreApi } from "zustand";
 import { Api, createApi } from "../api";
-import { Podcast } from "../@types/podcast";
+import { PodcastPreview } from "../@types/podcast";
 
 type Store = {
-  list: Podcast[];
+  list: PodcastPreview[];
   fetchPodcastList: () => void;
 };
 
