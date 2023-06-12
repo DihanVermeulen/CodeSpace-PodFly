@@ -6,26 +6,27 @@ import {
   MenuItem,
   FormControl,
   Select,
+  IconButton,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { ArrowBack } from "@mui/icons-material";
+import { useNavigate, useParams } from "react-router-dom";
 import { createApi } from "../../api";
 import { useEffect, useState } from "react";
 import {
   IndividualPodcast,
   IndividualPodcastSeason,
 } from "../../@types/podcast";
-import UtilStyles from "../../styles/utils.styles";
 import { useStore } from "zustand";
 import { store } from "../../model";
 import StyledComponents from "./ViewPodcastPage.styles";
-const { Space } = UtilStyles;
-const { ReadMoreButton, CenteredGrid, StyledImage, Title } = StyledComponents;
+import { ViewList } from "../../components/ViewList";
+const { ReadMoreButton, CenteredGrid, StyledImage, Title, Header } =
+  StyledComponents;
 
 const api = createApi();
 
 export const ViewPodcast = () => {
   const { id } = useParams<{ id: string }>();
-
   const [podcasts, setPodcasts] = useState<IndividualPodcast | null>(null);
   const [readMore, setReadMore] = useState<boolean>(false);
   const [selectedSeason, setSelectedSeason] =
@@ -34,6 +35,7 @@ export const ViewPodcast = () => {
   const active = podcastPreviews.find(
     ({ id: currentId }) => typeof id !== "undefined" && currentId === id
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleFetchIndividualPodcast = async () => {
@@ -51,9 +53,6 @@ export const ViewPodcast = () => {
 
     handleFetchIndividualPodcast();
   }, [id]);
-  if (podcasts) {
-    console.log(podcasts.seasons);
-  }
 
   const handleSetSelectedSeason = (event: { target: { value: any } }) => {
     const value = event.target.value;
@@ -64,7 +63,11 @@ export const ViewPodcast = () => {
   return (
     <>
       <Box>
-        <Space height="4rem" />
+        <Header>
+          <IconButton onClick={() => navigate(-1)}>
+            <ArrowBack />
+          </IconButton>
+        </Header>
         {active ? (
           <>
             <Grid container columns={2} spacing={2} height={200}>
@@ -177,6 +180,12 @@ export const ViewPodcast = () => {
             </FormControl>
           </Box>
         </Box>
+        {selectedSeason && (
+          <ViewList<IndividualPodcastSeason["episodes"]>
+            viewEpisodes
+            data={selectedSeason.episodes}
+          />
+        )}
       </Box>
     </>
   );
