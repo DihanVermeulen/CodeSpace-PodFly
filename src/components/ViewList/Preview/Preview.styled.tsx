@@ -6,6 +6,10 @@ const EpisodeTile = styled(Box)`
   background-color: #959595;
   padding: 0.3rem;
   padding-left: 1rem;
+
+  :active {
+    filter: brightness(120%);
+  }
 `;
 
 const EpisodeTitle = styled(Typography)<{ component: string }>`
