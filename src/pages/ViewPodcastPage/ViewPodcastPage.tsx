@@ -39,7 +39,10 @@ export const ViewPodcast = () => {
       if (id)
         try {
           const data = await api.getIndividualPodcastList(id);
-          if (!(data instanceof Error)) setPodcasts(data);
+          if (!(data instanceof Error)) {
+            setPodcasts(data);
+            setSelectedSeason(data.seasons[0]);
+          }
         } catch (error) {
           console.error("Error fetching individual podcast:", error);
         }
