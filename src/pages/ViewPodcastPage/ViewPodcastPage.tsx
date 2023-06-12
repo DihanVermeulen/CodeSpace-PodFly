@@ -18,8 +18,7 @@ import { useStore } from "zustand";
 import { store } from "../../model";
 import StyledComponents from "./ViewPodcastPage.styles";
 const { Space } = UtilStyles;
-const { ReadMoreButton, CenteredGrid, StyledSelect, StyledImage, Title } =
-  StyledComponents;
+const { ReadMoreButton, CenteredGrid, StyledImage, Title } = StyledComponents;
 
 const api = createApi();
 
