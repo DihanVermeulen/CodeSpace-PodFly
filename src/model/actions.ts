@@ -1,6 +1,7 @@
 import { useStore } from "zustand";
 import { store } from "./store";
-export const createActions = () => {
+
+export const createModalActions = () => {
   return {
     updateModalData: useStore(store, (state) => state.modal.data),
     openModal: useStore(store, (state) => state.modal.openModal),
@@ -8,4 +9,4 @@ export const createActions = () => {
   };
 };
 
-export default { createActions };
+export default { createModalActions };
