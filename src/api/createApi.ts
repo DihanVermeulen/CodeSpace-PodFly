@@ -1,7 +1,11 @@
-import { IndividualPodcast, Podcast, PodcastResponse } from "../@types/podcast";
+import {
+  IndividualPodcast,
+  PodcastPreview,
+  PodcastResponse,
+} from "../@types/podcast";
 
 export type Api = {
-  getPodcastList: () => Promise<Error | Podcast[]>;
+  getPodcastList: () => Promise<Error | PodcastPreview[]>;
   getIndividualPodcastList: (id: string) => Promise<Error | IndividualPodcast>;
 };
 
