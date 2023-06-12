@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { DiscoverPage, FavouritesPage, HomePage, Root } from "./pages";
 import { ViewPodcast } from "./pages/ViewPodcastPage";
 import { theme } from "./styles";
+import { Player } from "./components/Player";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const App = () => {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <Player />
         <RouterProvider router={router} />
       </ThemeProvider>
     </>
