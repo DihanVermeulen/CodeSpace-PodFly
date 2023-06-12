@@ -5,6 +5,7 @@ import { PodcastPreview } from "../@types/podcast";
 type ModalStore = {
   isOpen: boolean;
   isMaximized: boolean;
+  phase: "IDLE" | "LOADING" | "LOADED";
   data: {};
   openModal: () => void;
   closeModal: () => void;
@@ -25,6 +26,7 @@ export const createStore = (api: Api): StoreApi<Store> => {
   const store = createTypedStore((set) => ({
     list: [],
     modal: {
+      phase: "IDLE",
       isOpen: false,
       isMaximized: true,
       data: {},
