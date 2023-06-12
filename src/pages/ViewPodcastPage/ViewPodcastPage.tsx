@@ -159,18 +159,19 @@ export const ViewPodcast = () => {
               Season
             </Typography>
             <FormControl size="small">
-              {podcasts && (
-                <StyledSelect
-                  value={selectedSeason}
-                  onChange={(event: any) => handleSetSeason(event.target.value)}
+              {podcasts && selectedSeason && (
+                <Select
+                  value={selectedSeason.season}
+                  onChange={handleSetSelectedSeason}
+                  defaultValue={1}
                   sx={{ border: "none", outline: "none" }}
                 >
                   {podcasts.seasons.map((item) => (
-                    <MenuItem key={item.season} value={1}>
+                    <MenuItem key={item.season} value={item.season}>
                       {item.season}
                     </MenuItem>
                   ))}
-                </StyledSelect>
+                </Select>
               )}
             </FormControl>
           </Box>
