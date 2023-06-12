@@ -9,7 +9,7 @@ const Header = styled.header`
   padding: 0.6rem;
   color: #a1a1a1;
   width: 100vw;
-  z-index: 999;
+  z-index: 998;
   background-color: rgba(255, 255, 255);
 `;
 
