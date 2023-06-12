@@ -25,15 +25,6 @@ const ReadMoreButton = styled.button`
   cursor: pointer;
 `;
 
-const StyledSelect = styled(Select)<{ onChange: any }>`
-  & :focus {
-    border-color: #d7a6b3;
-  }
-  & ::before {
-    border-color: #d7a6b3;
-  }
-`;
-
 const Title = styled(Typography)`
   font-size: 24px;
 `;
@@ -42,6 +33,5 @@ export default {
   StyledImage,
   CenteredGrid,
   ReadMoreButton,
-  StyledSelect,
   Title,
 };
