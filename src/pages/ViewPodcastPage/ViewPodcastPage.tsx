@@ -9,7 +9,10 @@ import {
 import { useParams } from "react-router-dom";
 import { createApi } from "../../api";
 import { useEffect, useState } from "react";
-import { IndividualPodcast } from "../../@types/podcast";
+import {
+  IndividualPodcast,
+  IndividualPodcastSeason,
+} from "../../@types/podcast";
 import UtilStyles from "../../styles/utils.styles";
 import { useStore } from "zustand";
 import { store } from "../../model";
