@@ -18,7 +18,7 @@ import {
 } from "../../@types/podcast";
 import { useStore } from "zustand";
 import { store } from "../../model";
-import StyledComponents from "./ViewPodcastPage.styles";
+import StyledComponents from "./ViewPodcastPage.styled";
 import { ViewList } from "../../components/ViewList";
 const { ReadMoreButton, CenteredGrid, StyledImage, Title, Header } =
   StyledComponents;

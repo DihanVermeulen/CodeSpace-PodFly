@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 const StyledImage = styled.img`
   border-radius: 20px;
@@ -29,9 +29,20 @@ const Title = styled(Typography)`
   font-size: 24px;
 `;
 
+const Header = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 4rem;
+`;
+
 export default {
   StyledImage,
   CenteredGrid,
   ReadMoreButton,
   Title,
+  Header,
 };
