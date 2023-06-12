@@ -4,7 +4,8 @@ import { Box, Typography } from "@mui/material";
 const EpisodeTile = styled(Box)`
   width: 100%;
   background-color: #959595;
-  padding: 0.6rem;
+  padding: 0.3rem;
+  padding-left: 1rem;
 `;
 
 const EpisodeTitle = styled(Typography)<{ component: string }>`
