@@ -2,9 +2,21 @@ import { createStore as createZustandStore, StoreApi } from "zustand";
 import { Api, createApi } from "../api";
 import { PodcastPreview } from "../@types/podcast";
 
+type ModalStore = {
+  isOpen: boolean;
+  isMaximized: boolean;
+  data: {};
+  openModal: () => void;
+  closeModal: () => void;
+  maximizeModal: () => void;
+  minimizeModal: () => void;
+  updateData: (data: any) => void;
+};
+
 type Store = {
   list: PodcastPreview[];
   fetchPodcastList: () => void;
+  modal: ModalStore;
 };
 
 const createTypedStore = createZustandStore<Store>();
@@ -12,7 +24,21 @@ const createTypedStore = createZustandStore<Store>();
 export const createStore = (api: Api): StoreApi<Store> => {
   const store = createTypedStore((set) => ({
     list: [],
-
+    modal: {
+      isOpen: false,
+      isMaximized: true,
+      data: {},
+      openModal: () =>
+        set((state) => ({ modal: { ...state.modal, isOpen: true } })),
+      closeModal: () =>
+        set((state) => ({ modal: { ...state.modal, isOpen: false } })),
+      maximizeModal: () =>
+        set((state) => ({ modal: { ...state.modal, isMaximized: true } })),
+      minimizeModal: () =>
+        set((state) => ({ modal: { ...state.modal, isMaximized: false } })),
+      updateData: (data) =>
+        set((state) => ({ modal: { ...state.modal, modalData: data } })),
+    },
     fetchPodcastList: async () => {
       const data = await api.getPodcastList();
       if (!(data instanceof Error)) {
