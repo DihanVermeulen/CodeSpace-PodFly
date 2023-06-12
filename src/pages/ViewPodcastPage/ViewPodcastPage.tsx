@@ -25,7 +25,7 @@ const { ReadMoreButton, CenteredGrid, StyledImage, Title, Header } =
 
 const api = createApi();
 
-export const ViewPodcast = () => {
+export const ViewPodcastPage = () => {
   const { id } = useParams<{ id: string }>();
   const [podcasts, setPodcasts] = useState<IndividualPodcast | null>(null);
   const [readMore, setReadMore] = useState<boolean>(false);
