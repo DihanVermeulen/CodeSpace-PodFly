@@ -1,7 +1,6 @@
 import { IndividualPodcastEpisode } from "../../../@types/podcast";
-import StyledComponents from "./Preview.styled";
+import { EpisodeTitle, EpisodeTile, EpisodeLabel } from "./Preview.styled";
 import UtilsStyles from "../../../styles/utils.styles";
-const { EpisodeTile, EpisodeTitle, EpisodeLabel } = StyledComponents;
 const { Space } = UtilsStyles;
 
 export const PreviewEpisode = (props: IndividualPodcastEpisode) => {
@@ -9,7 +8,7 @@ export const PreviewEpisode = (props: IndividualPodcastEpisode) => {
   return (
     <EpisodeTile>
       <EpisodeTitle component="dt">{title}</EpisodeTitle>
-      <Space height="0.3rem"/>
+      <Space height="0.3rem" />
       <EpisodeLabel component="dd">Episode: {episode}</EpisodeLabel>
     </EpisodeTile>
   );
