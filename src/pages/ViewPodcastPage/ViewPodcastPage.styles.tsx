@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Grid, Select, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 const StyledImage = styled.img`
   border-radius: 20px;
