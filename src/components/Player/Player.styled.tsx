@@ -3,13 +3,15 @@ import styled from "@emotion/styled";
 import { Box } from "@mui/material";
 
 export const ModalContainer = styled.div<{ isOpen: boolean }>`
+  display: flex;
+  align-items: center;
   position: fixed;
   left: 0;
-  bottom: ${({ isOpen }) => (isOpen ? "0" : "-100%")}; // Initial position
+  bottom: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
   width: 100%;
-  height: 100%;
-  background-color: #ffffff;
-  transition: bottom 0.3s ease-in-out; // Transition animation
+  height: 10vh;
+  background-color: rgba(217, 217, 217, 0.3);
+  transition: bottom 0.3s ease-in-out;
   z-index: 999;
 
   ${({ isOpen }) =>
