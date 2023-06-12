@@ -1,14 +1,14 @@
 import { CarouselCard } from "./CarouselCard";
 import StyledComponents from "./Carousel.styled";
 import { useState, useEffect } from "react";
-import { Podcast } from "../../@types/podcast";
+import { PodcastPreview } from "../../@types/podcast";
 
 export type Carousel = {
-  data: Podcast[];
+  data: PodcastPreview[];
 };
 
 export const Carousel = (props: Carousel) => {
-  const [data] = useState<Podcast[]>(props.data);
+  const [data] = useState<PodcastPreview[]>(props.data);
   const [phase, setPhase] = useState("LOADING");
 
   useEffect(() => {
