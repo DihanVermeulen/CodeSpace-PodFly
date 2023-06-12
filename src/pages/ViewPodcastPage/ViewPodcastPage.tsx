@@ -27,7 +27,8 @@ export const ViewPodcast = () => {
 
   const [podcasts, setPodcasts] = useState<IndividualPodcast | null>(null);
   const [readMore, setReadMore] = useState<boolean>(false);
-  const [selectedSeason, setSelectedSeason] = useState<number>(1);
+  const [selectedSeason, setSelectedSeason] =
+    useState<IndividualPodcastSeason>();
   const podcastPreviews = useStore(store, (state) => state.list);
   const active = podcastPreviews.find(
     ({ id: currentId }) => typeof id !== "undefined" && currentId === id
