@@ -9,8 +9,8 @@ type ModalStore = {
   data: {};
   openModal: () => void;
   closeModal: () => void;
-  maximizeModal: () => void;
-  minimizeModal: () => void;
+  maximiseModal: () => void;
+  minimiseModal: () => void;
   updateData: (data: any) => void;
 };
 
@@ -34,9 +34,9 @@ export const createStore = (api: Api): StoreApi<Store> => {
         set((state) => ({ modal: { ...state.modal, isOpen: true } })),
       closeModal: () =>
         set((state) => ({ modal: { ...state.modal, isOpen: false } })),
-      maximizeModal: () =>
+      maximiseModal: () =>
         set((state) => ({ modal: { ...state.modal, isMaximized: true } })),
-      minimizeModal: () =>
+      minimiseModal: () =>
         set((state) => ({ modal: { ...state.modal, isMaximized: false } })),
       updateData: (data) =>
         set((state) => ({ modal: { ...state.modal, modalData: data } })),
