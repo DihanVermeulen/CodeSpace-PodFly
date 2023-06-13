@@ -180,10 +180,14 @@ export const ViewPodcastPage = () => {
             </FormControl>
           </Box>
         </Box>
-        {selectedSeason && (
+        {podcasts && selectedSeason && (
           <ViewList<IndividualPodcastSeason["episodes"]>
             viewEpisodes
-            data={selectedSeason.episodes}
+            data={{
+              episodes: [...selectedSeason.episodes],
+              podcastId: podcasts.id,
+              season: selectedSeason.season,
+            }}
           />
         )}
       </Box>
