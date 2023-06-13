@@ -184,7 +184,7 @@ export const ViewPodcastPage = () => {
           <ViewList
             viewEpisodes
             data={{
-              episodes: [...selectedSeason.episodes],
+              episodes: selectedSeason.episodes,
               podcastId: podcasts.id,
               season: selectedSeason.season,
             }}
