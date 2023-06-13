@@ -1,14 +1,17 @@
 import styled from "@emotion/styled";
-import { Box, Typography } from "@mui/material";
+import { Typography, ButtonBase } from "@mui/material";
 
-export const EpisodeTile = styled(Box)`
+export const EpisodeTile = styled(ButtonBase)`
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
+  height: 100%;
   background-color: #959595;
   padding: 0.3rem;
   padding-left: 1rem;
 
-  :active {
-    filter: brightness(120%);
+  dt {
+    text-align: left;
   }
 `;
 
