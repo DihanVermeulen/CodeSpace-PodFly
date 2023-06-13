@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { createModalActions, getModalState } from "../model";
 import { createApi } from "../api";
 import { useEffect } from "react";
+import { IndividualPodcast, IndividualPodcastEpisode, IndividualPodcastSeason } from "../@types/podcast";
 
 export const usePlayer = () => {
   const modalState = getModalState();
@@ -26,7 +27,7 @@ export const usePlayer = () => {
           const episode = parseInt(episodeParam || "");
 
           if (!isNaN(season) && !isNaN(episode)) {
-            const foundEpisode = findEpisode(data, season, episode);
+            const foundEpisode = findEpisode(data as IndividualPodcast, season, episode);
             if (typeof foundEpisode !== "undefined") {
               modalActions.updateModalData({
                 episodeNumber: foundEpisode.episode.episode,
@@ -43,10 +44,10 @@ export const usePlayer = () => {
     }
   }, [location, modalActions]);
 
-  const findEpisode = (data, seasonNumber, episodeNumber) => {
-    const season = data.seasons.find((item) => item.season === seasonNumber);
+  const findEpisode = (data: IndividualPodcast, seasonNumber: number, episodeNumber: number) => {
+    const season: IndividualPodcastSeason | undefined = data.seasons.find((item) => item.season === seasonNumber);
 
-    const episode = season?.episodes.find(
+    const episode: IndividualPodcastEpisode | undefined = season?.episodes.find(
       (item) => item.episode === episodeNumber
     );
     if (typeof episode !== "undefined") {
@@ -56,7 +57,7 @@ export const usePlayer = () => {
     }
   };
 
-  const fetchIndividualPodcast = (id) => {
+  const fetchIndividualPodcast = (id: string) => {
     return new Promise((resolve, reject) => {
       try {
         const data = api.getIndividualPodcastList(id);
