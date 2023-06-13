@@ -6,7 +6,7 @@ type ModalStore = {
   isOpen: boolean;
   isMaximized: boolean;
   phase: "IDLE" | "LOADING" | "LOADED";
-  data: {};
+  data: null | PlayerData;
   openModal: () => void;
   closeModal: () => void;
   maximiseModal: () => void;
