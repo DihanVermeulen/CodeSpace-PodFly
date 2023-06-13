@@ -42,12 +42,7 @@ export const ViewList = <
 
   if (viewEpisodes) {
     return (
-      <Box
-        display={"flex"}
-        flexWrap={"wrap"}
-        style={{ width: "100%" }}
-        onClick={handleNavigate}
-      >
+      <Box display={"flex"} flexWrap={"wrap"} style={{ width: "100%" }}>
         <List sx={{ width: "100%" }}>
           {(data as IndividualPodcastSeason["episodes"]).episodes.map(
             (item, index) => (
