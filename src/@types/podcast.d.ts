@@ -1,4 +1,4 @@
-export type PodcastPreview = {
+type PodcastPreview = {
   id: string;
   title: string;
   image: string;
