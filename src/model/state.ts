@@ -14,4 +14,14 @@ export const getModalState = () => {
   };
 };
 
-export default { getModalState };
+/**
+ * Gets the app's state
+ * @returns state
+ */
+export const getAppState = () => {
+  return {
+    list: useStore(store, (state) => state.list),
+  };
+};
+
+export default { getModalState, getAppState };
