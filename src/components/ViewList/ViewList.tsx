@@ -10,6 +10,11 @@ type ViewList<T = PodcastPreview[]> = {
   viewEpisodes?: boolean;
 };
 
+/**
+ * Displays previews in the form of a list
+ * @param props
+ * @returns episode preview or podcast preview
+ */
 export const ViewList = <
   T extends PodcastPreview[] | IndividualPodcastSeason["episodes"]
 >(

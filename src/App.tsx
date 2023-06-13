@@ -1,15 +1,13 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { DiscoverPage, FavouritesPage, HomePage, Root } from "./pages";
 import { ViewPodcastPage } from "./pages/ViewPodcastPage";
 import { theme } from "./styles";
 import { Player } from "./components/Player";
 
+/**
+ * @returns router content
+ */
 const RouterContent = () => {
   const location = useLocation();
 

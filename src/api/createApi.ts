@@ -37,6 +37,11 @@ const getPodcastList: Api["getPodcastList"] = () => {
   return result;
 };
 
+/**
+ * Gets individual podcast data
+ * @param id - podcast id
+ * @returns 
+ */
 const getIndividualPodcastList: Api["getIndividualPodcastList"] = (
   id: string
 ) => {

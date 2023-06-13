@@ -22,6 +22,11 @@ type Store = {
 
 const createTypedStore = createZustandStore<Store>();
 
+/**
+ * Creates a zustand store
+ * @param {Api} api  - api that is created
+ * @returns {StoreApi<Store>} store
+ */
 export const createStore = (api: Api): StoreApi<Store> => {
   const store = createTypedStore((set) => ({
     list: [],

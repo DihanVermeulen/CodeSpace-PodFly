@@ -1,6 +1,10 @@
 import { useStore } from "zustand";
 import { store } from "./store";
 
+/**
+ * Action creator for Player component
+ * @returns actions
+ */
 export const createModalActions = () => {
   return {
     updateModalData: useStore(store, (state) => state.modal.data),
