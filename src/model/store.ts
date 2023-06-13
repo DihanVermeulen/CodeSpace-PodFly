@@ -44,7 +44,7 @@ export const createStore = (api: Api): StoreApi<Store> => {
       minimiseModal: () =>
         set((state) => ({ modal: { ...state.modal, isMaximized: false } })),
       updateData: (data) =>
-        set((state) => ({ modal: { ...state.modal, modalData: data } })),
+        set((state) => ({ modal: { ...state.modal, data: data } })),
     },
     fetchPodcastList: async () => {
       const data = await api.getPodcastList();
