@@ -16,7 +16,7 @@ export const Preview = (props: Preview) => {
 
   return (
     <Card>
-      <Image src={image} />
+      <Image src={image} loading="lazy"/>
       <dl>
         <Label variant="h1" as="dt" fontSize={"18px"}>
           {title}
