@@ -7,7 +7,7 @@ import { store } from "./store";
  */
 export const createModalActions = () => {
   return {
-    updateModalData: useStore(store, (state) => state.modal.data),
+    updateModalData: useStore(store, (state) => state.modal.updateData),
     openModal: useStore(store, (state) => state.modal.openModal),
     closeModal: useStore(store, (state) => state.modal.closeModal),
     maximiseModal: useStore(store, (state) => state.modal.maximiseModal),
