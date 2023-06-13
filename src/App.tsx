@@ -1,27 +1,31 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import { DiscoverPage, FavouritesPage, HomePage, Root } from "./pages";
 import { ViewPodcastPage } from "./pages/ViewPodcastPage";
 import { theme } from "./styles";
 import { Player } from "./components/Player";
-import { ListenPage } from "./pages/ListenPage";
-import { AnimatePresence } from "framer-motion";
 
-const AnimatedRoutes = () => {
+const RouterContent = () => {
   const location = useLocation();
 
+  const background = location.state && location.state.background;
+
   return (
-    <AnimatePresence>
-      <Routes location={location} key={location.pathname}>
+    <>
+      <Routes location={background || location}>
         <Route path="/" element={<Root />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/favourites" element={<FavouritesPage />} />
           <Route path="/discover" element={<DiscoverPage />} />
+          <Route path="/favourites" element={<FavouritesPage />} />
         </Route>
         <Route path="/view/:id" element={<ViewPodcastPage />} />
-        <Route path="/listen/:id" element={<ListenPage />} />
       </Routes>
-    </AnimatePresence>
+    </>
   );
 };
 
@@ -30,11 +34,10 @@ const App = () => {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Player />
         <BrowserRouter>
-          <AnimatedRoutes />
+          <Player />
+          <RouterContent />
         </BrowserRouter>
-        {/* <RouterProvider router={router} /> */}
       </ThemeProvider>
     </>
   );
