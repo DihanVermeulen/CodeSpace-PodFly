@@ -33,8 +33,8 @@ export const createStore = (api: Api): StoreApi<Store> => {
     modal: {
       phase: "IDLE",
       isOpen: false,
-      isMaximized: true,
-      data: {},
+      isMaximized: false,
+      data: null,
       openModal: () =>
         set((state) => ({ modal: { ...state.modal, isOpen: true } })),
       closeModal: () =>
