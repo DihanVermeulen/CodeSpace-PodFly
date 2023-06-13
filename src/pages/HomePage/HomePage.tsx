@@ -2,17 +2,18 @@ import styled from "@emotion/styled";
 import { Typography, Skeleton, Stack, Box } from "@mui/material";
 import { Carousel } from "../../components/Carousel";
 import { useState, useEffect } from "react";
-import { Podcast } from "../../@types/podcast";
+import { PodcastPreview } from "../../@types/podcast";
 import utilsStyles from "../../styles/utils.styles";
 import { store } from "../../model";
 import { useStore } from "zustand";
+import { ViewList } from "../../components/ViewList";
 
 const Text = styled(Typography)<{ as: string }>`
   font-family: "Poppins", sans-serif;
 `;
 
 export const HomePage = () => {
-  const podcasts: Podcast[] = useStore(store, (state) => state.list);
+  const podcasts: PodcastPreview[] = useStore(store, (state) => state.list);
   const [phase, setPhase] = useState("LOADING");
 
   const { Space } = utilsStyles;
@@ -71,6 +72,9 @@ export const HomePage = () => {
         </Stack>
       )}
       <Space height={"2rem"} />
+      <Box padding={2}>
+        <ViewList data={podcasts} />
+      </Box>
     </>
   );
 };
