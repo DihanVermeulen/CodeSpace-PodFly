@@ -26,34 +26,37 @@ export const usePlayer = () => {
 
       /** Search parameters from URL query */
       const searchParams = new URLSearchParams(location.search);
+      const podcastParam = searchParams.get("podcast");
       const seasonParam = searchParams.get("season");
       const episodeParam = searchParams.get("episode");
+      if (typeof podcastParam === "string")
+        fetchIndividualPodcast(podcastParam).then((data) => {
+          console.log("fetched data: ", data);
+          if (
+            typeof seasonParam === "string" ||
+            typeof episodeParam === "string"
+          ) {
+            const season = parseInt(seasonParam || "");
+            const episode = parseInt(episodeParam || "");
 
-      fetchIndividualPodcast("8256").then((data) => {
-        if (
-          typeof seasonParam === "string" ||
-          typeof episodeParam === "string"
-        ) {
-          const season = parseInt(seasonParam || "");
-          const episode = parseInt(episodeParam || "");
-
-          if (!isNaN(season) && !isNaN(episode)) {
-            const foundEpisode = findEpisode(
-              data as IndividualPodcast,
-              season,
-              episode
-            );
-            if (typeof foundEpisode !== "undefined") {
-              modalActions.updateModalData({
-                episodeNumber: foundEpisode.episode.episode,
-                season: season,
-                episodeTitle: foundEpisode.episode.title,
-                audioSrc: foundEpisode.episode.file,
-              });
+            if (!isNaN(season) && !isNaN(episode)) {
+              const foundEpisode = findEpisode(
+                data as IndividualPodcast,
+                season,
+                episode
+              );
+              if (typeof foundEpisode !== "undefined") {
+                modalActions.updateModalData({
+                  episodeNumber: foundEpisode.episode.episode,
+                  season: season,
+                  episodeTitle: foundEpisode.episode.title,
+                  audioSrc: foundEpisode.episode.file,
+                  image: data.image,
+                });
+              }
             }
           }
-        }
-      });
+        });
     } else {
       modalActions.minimiseModal();
       // Enables scrolling
@@ -106,7 +109,6 @@ export const usePlayer = () => {
       if (modalState.isMaximised) {
         navigate(-1);
       } else {
-        console.log("Closing modal");
         modalActions.updateModalData(null);
         modalActions.closeModal();
       }
