@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
 
 export const ModalContainer = styled.div<{
   isOpen: boolean;
   isMaximised: boolean;
-  disableScrollLock: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -44,6 +44,46 @@ export const PlayerContainer = styled(Box)`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  padding-bottom: 3rem;
 `;
 
-export default { ModalContainer, Header, PlayerContainer };
+export const LoadingStateContainer = styled(Box)`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ContentContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Image = styled.img`
+  width: 15rem;
+  height: 15rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+`;
+
+export const Title = styled(Typography)<{ as: string }>`
+  font-size: 22px;
+  color: #4c3b4d;
+  text-align: center;
+  font-family: Poppins;
+`;
+
+export default {
+  ModalContainer,
+  Header,
+  PlayerContainer,
+  LoadingStateContainer,
+  ContentContainer,
+  Image,
+  Title,
+};
