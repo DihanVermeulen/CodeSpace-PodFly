@@ -17,7 +17,14 @@ export const usePlayer = () => {
 
   useEffect(() => {
     if (location.pathname.startsWith("/listen")) {
+      // Maximises modal if the URL contains "/listen"
       modalActions.maximiseModal();
+      if (!modalState.isOpen) modalActions.openModal();
+
+      // Disables scrolling
+      document.body.style.overflow = "hidden";
+
+      /** Search parameters from URL query */
       const searchParams = new URLSearchParams(location.search);
       const seasonParam = searchParams.get("season");
       const episodeParam = searchParams.get("episode");
@@ -49,8 +56,10 @@ export const usePlayer = () => {
       });
     } else {
       modalActions.minimiseModal();
+      // Enables scrolling
+      document.body.style.overflow = "auto";
     }
-  }, [location, modalActions]);
+  }, [location]);
 
   const findEpisode = (
     data: IndividualPodcast,
@@ -71,7 +80,14 @@ export const usePlayer = () => {
     }
   };
 
-  const fetchIndividualPodcast = (id: string) => {
+  /**
+   * Fetches an individual podcast
+   * @param id - id of podcast
+   * @returns {Promise<IndividualPodcast | Error >}
+   */
+  const fetchIndividualPodcast = (
+    id: string
+  ): Promise<IndividualPodcast | Error> => {
     return new Promise((resolve, reject) => {
       try {
         const data = api.getIndividualPodcastList(id);
@@ -84,11 +100,13 @@ export const usePlayer = () => {
     });
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (event: { stopPropagation: () => void }) => {
+    event.stopPropagation();
     setTimeout(() => {
       if (modalState.isMaximised) {
         navigate(-1);
       } else {
+        console.log("Closing modal");
         modalActions.updateModalData(null);
         modalActions.closeModal();
       }
