@@ -3,4 +3,5 @@ type PlayerData = {
   episodeTitle: string;
   episodeNumber: number;
   season: number;
+  image: string;
 };
