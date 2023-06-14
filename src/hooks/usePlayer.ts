@@ -2,7 +2,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { createModalActions, getModalState } from "../model";
 import { createApi } from "../api";
 import { useEffect } from "react";
-import { IndividualPodcast, IndividualPodcastEpisode, IndividualPodcastSeason } from "../@types/podcast";
+import {
+  IndividualPodcast,
+  IndividualPodcastEpisode,
+  IndividualPodcastSeason,
+} from "../@types/podcast";
 
 export const usePlayer = () => {
   const modalState = getModalState();
@@ -27,7 +31,11 @@ export const usePlayer = () => {
           const episode = parseInt(episodeParam || "");
 
           if (!isNaN(season) && !isNaN(episode)) {
-            const foundEpisode = findEpisode(data as IndividualPodcast, season, episode);
+            const foundEpisode = findEpisode(
+              data as IndividualPodcast,
+              season,
+              episode
+            );
             if (typeof foundEpisode !== "undefined") {
               modalActions.updateModalData({
                 episodeNumber: foundEpisode.episode.episode,
@@ -44,8 +52,14 @@ export const usePlayer = () => {
     }
   }, [location, modalActions]);
 
-  const findEpisode = (data: IndividualPodcast, seasonNumber: number, episodeNumber: number) => {
-    const season: IndividualPodcastSeason | undefined = data.seasons.find((item) => item.season === seasonNumber);
+  const findEpisode = (
+    data: IndividualPodcast,
+    seasonNumber: number,
+    episodeNumber: number
+  ) => {
+    const season: IndividualPodcastSeason | undefined = data.seasons.find(
+      (item) => item.season === seasonNumber
+    );
 
     const episode: IndividualPodcastEpisode | undefined = season?.episodes.find(
       (item) => item.episode === episodeNumber
@@ -75,6 +89,7 @@ export const usePlayer = () => {
       if (modalState.isMaximised) {
         navigate(-1);
       } else {
+        modalActions.updateModalData(null);
         modalActions.closeModal();
       }
     }, 0);
