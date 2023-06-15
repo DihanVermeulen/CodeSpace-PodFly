@@ -29,6 +29,7 @@ export const DiscoverList = (props: DiscoverList) => {
                   title={item.title}
                   image={item.image}
                   seasons={item.seasons}
+                  updated={item.updated}
                 />
               </StyledLink>
             </Grid>
