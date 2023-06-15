@@ -9,9 +9,8 @@ export type DiscoverList = {
 };
 
 export const DiscoverList = (props: DiscoverList) => {
-  const [data] = useState(props.data);
-
   const { StyledLink } = StyledComponents;
+  const { data } = props;
 
   return (
     <>
