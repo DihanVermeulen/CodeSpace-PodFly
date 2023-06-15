@@ -19,6 +19,15 @@ export const DiscoverPage = () => {
   useEffect(() => {
     if (podcasts.length > 0) {
       setPhase("LISTING");
+      setFilteredData((prevData) => {
+        if (prevData === null || prevData === podcasts) {
+          return filterData(filter, podcasts);
+        }
+        return prevData;
+      });
+    }
+  }, [filter, podcasts]);
+
   const filterData = (filter: Filter, data: PodcastPreview[]) => {
     switch (filter) {
       case "A-Z": {
