@@ -11,6 +11,10 @@ type Filter = "A-Z" | "Z-A" | "MOST_RECENT" | "LEAST_RECENT" | "ALL";
 export const DiscoverPage = () => {
   const podcasts = useStore(store, (state) => state.list);
   const [phase, setPhase] = useState("LOADING");
+  const [filteredData, setFilteredData] = useState<PodcastPreview[] | null>(
+    null
+  );
+  const [filter, setFilter] = useState<Filter>("ALL");
 
   useEffect(() => {
     if (podcasts.length > 0) {
