@@ -18,7 +18,7 @@ export const Preview = (props: Preview) => {
 
   return (
     <Card>
-      <Image src={image} loading="lazy"/>
+      <Image src={image} loading="lazy" />
       <dl>
         <Label variant="h1" as="dt" fontSize={"18px"}>
           {title}
@@ -33,7 +33,7 @@ export const Preview = (props: Preview) => {
           color={"#a1a1a1"}
           style={{ margin: 0, fontWeight: 300 }}
         >
-          updated: {format(parseISO(updated.toString()), "dd LLLL yyyy")}
+          updated: {format(updated, "dd LLLL yyyy")}
         </Label>
       </dl>
     </Card>
