@@ -40,7 +40,7 @@ const getPodcastList: Api["getPodcastList"] = () => {
 /**
  * Gets individual podcast data
  * @param id - podcast id
- * @returns 
+ * @returns
  */
 const getIndividualPodcastList: Api["getIndividualPodcastList"] = (
   id: string
@@ -53,6 +53,11 @@ const getIndividualPodcastList: Api["getIndividualPodcastList"] = (
       return response;
     })
     .then((response) => response.json())
+    .then((result) =>
+      result.map((item: { updated: string | number | Date; }) => {
+        return { ...item, updated: new Date(item.updated) };
+      })
+    )
     .catch((err) => {
       console.error(err);
       return err;
