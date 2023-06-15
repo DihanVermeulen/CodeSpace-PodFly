@@ -8,6 +8,7 @@ import { PodcastPreview } from "../../@types/podcast";
 import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 const { Space } = utilsStyles;
+type Filter = "A-Z" | "Z-A" | "MOST_RECENT" | "LEAST_RECENT" | "ALL";
 
 export const DiscoverPage = () => {
   const podcasts = useStore(store, (state) => state.list);
