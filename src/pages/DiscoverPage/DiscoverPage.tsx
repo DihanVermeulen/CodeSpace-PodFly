@@ -13,6 +13,31 @@ export const DiscoverPage = () => {
   useEffect(() => {
     if (podcasts.length > 0) {
       setPhase("LISTING");
+  const filterData = (filter: Filter, data: PodcastPreview[]) => {
+    switch (filter) {
+      case "A-Z": {
+        return [...data].sort((a, b) => a.title.localeCompare(b.title));
+      }
+      case "Z-A": {
+        return [...data].sort((a, b) => b.title.localeCompare(a.title));
+      }
+      case "MOST_RECENT": {
+        return [...data].sort(
+          (a, b) => b.updated.getTime() - a.updated.getTime()
+        );
+      }
+      case "LEAST_RECENT": {
+        return [...data].sort(
+          (a, b) => a.updated.getTime() - b.updated.getTime()
+        );
+      }
+      case "ALL":
+        return [...data];
+      default:
+        return [...data];
+    }
+  };
+
     }
   }, [podcasts]);
 
