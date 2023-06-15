@@ -5,6 +5,7 @@ export type Preview = {
   image: string;
   title: string;
   seasons: number;
+  updated: Date;
 };
 
 export type LoadingImage = {
@@ -12,7 +13,7 @@ export type LoadingImage = {
 };
 
 export const Preview = (props: Preview) => {
-  const { image, title, seasons } = props;
+  const { image, title, seasons, updated } = props;
 
   return (
     <Card>
