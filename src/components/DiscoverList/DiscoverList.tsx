@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Podcast } from "../../@types/podcast";
+import { PodcastPreview } from "../../@types/podcast";
 import { Grid } from "@mui/material";
 import { Preview } from "./Preview";
 import StyledComponents from "./DiscoverList.styled";
 
 export type DiscoverList = {
-  data: Podcast[];
+  data: PodcastPreview[];
 };
 
 export const DiscoverList = (props: DiscoverList) => {
