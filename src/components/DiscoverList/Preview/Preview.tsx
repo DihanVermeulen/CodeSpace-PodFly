@@ -1,5 +1,6 @@
 import StyledComponents from "./Preview.styled";
 const { Label, Card, Image } = StyledComponents;
+import { format, parseISO } from "date-fns";
 
 export type Preview = {
   image: string;
@@ -24,6 +25,15 @@ export const Preview = (props: Preview) => {
         </Label>
         <Label variant="body2" as="dd" color={"#A1A1A1"} fontSize={"14px"}>
           Seasons: {seasons}
+        </Label>
+        <Label
+          variant="body1"
+          as="dd"
+          fontSize={"12px"}
+          color={"#a1a1a1"}
+          style={{ margin: 0, fontWeight: 300 }}
+        >
+          updated: {format(parseISO(updated.toString()), "dd LLLL yyyy")}
         </Label>
       </dl>
     </Card>
