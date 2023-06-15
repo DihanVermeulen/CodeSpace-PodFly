@@ -1,8 +1,11 @@
 import { DiscoverList } from "../../components/DiscoverList";
 import utilsStyles from "../../styles/utils.styles";
+import { Space } from "../../styles/utils.styles";
 import { useStore } from "zustand";
 import { store } from "../../model";
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent } from "react";
+import { PodcastPreview } from "../../@types/podcast";
+import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 const { Space } = utilsStyles;
 
