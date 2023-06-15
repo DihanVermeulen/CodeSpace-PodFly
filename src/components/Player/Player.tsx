@@ -6,6 +6,7 @@ import {
   ContentContainer,
   Image,
   Title,
+  MinimisedPlayer,
 } from "./Player.styled";
 import { IconButton, Slider, CircularProgress } from "@mui/material";
 import {
@@ -48,22 +49,27 @@ export const Player = () => {
         isMaximised={isMaximised}
         isOpen={isOpen}
       >
-        <Header>
-          {modalState.isMaximised ? (
-            <IconButton onClick={handleCloseModal} style={{ zIndex: 1000 }}>
-              <ArrowBack />
-            </IconButton>
-          ) : (
-            <IconButton onClick={handleCloseModal} style={{ zIndex: 1000 }}>
-              <Close />
-            </IconButton>
-          )}
-        </Header>
+        {modalState.isMaximised && (
+          <>
+            <Header>
+              <IconButton onClick={handleCloseModal} style={{ zIndex: 1000 }}>
+                <ArrowBack />
+              </IconButton>
+            </Header>
+          </>
+        )}
 
         {playerData && (
           <>
-            <ContentContainer>
-              <Image src={playerData.image} />
+            <ContentContainer
+              display={modalState.isMaximised ? "flex" : "none"}
+            >
+              <Image
+                width={"15rem"}
+                height={"15rem"}
+                marginBottom={"1rem"}
+                src={playerData.image}
+              />
               <Title as="h1">{playerData.episodeTitle}</Title>
               <p
                 style={{
@@ -103,6 +109,15 @@ export const Player = () => {
               </IconButton>
             </PlayerContainer>
           </>
+        )}
+
+        {!modalState.isMaximised && (
+          <MinimisedPlayer>
+            <Image width={"2.5rem"} height={"2.5rem"} src={playerData?.image} />
+            <IconButton onClick={handleCloseModal} style={{ zIndex: 1000 }}>
+              <Close />
+            </IconButton>
+          </MinimisedPlayer>
         )}
 
         {!playerData && (
