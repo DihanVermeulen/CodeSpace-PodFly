@@ -55,20 +55,24 @@ export const LoadingStateContainer = styled(Box)`
   align-items: center;
 `;
 
-export const ContentContainer = styled(Box)`
-  display: flex;
+export const ContentContainer = styled(Box)<{ display: string }>`
   flex-direction: column;
+  display: ${(props) => props.display};
   width: 100%;
   height: 100%;
   justify-content: center;
   align-items: center;
 `;
 
-export const Image = styled.img`
-  width: 15rem;
-  height: 15rem;
+export const Image = styled.img<{
+  width: string;
+  height: string;
+  marginBottom?: string;
+}>`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   border-radius: 5px;
-  margin-bottom: 1rem;
+  margin-bottom: ${(props) => props.marginBottom};
 `;
 
 export const Title = styled(Typography)<{ as: string }>`
@@ -76,6 +80,15 @@ export const Title = styled(Typography)<{ as: string }>`
   color: #4c3b4d;
   text-align: center;
   font-family: Poppins;
+`;
+
+export const MinimisedPlayer = styled(Box)`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 1rem;
+  width: 100%;
+  justify-content: space-between;
 `;
 
 export default {
@@ -86,4 +99,5 @@ export default {
   ContentContainer,
   Image,
   Title,
+  MinimisedPlayer,
 };
