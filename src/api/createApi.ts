@@ -21,14 +21,12 @@ const getPodcastList: Api["getPodcastList"] = () => {
       return response;
     })
     .then((response) => response.json())
-    .then((data: PodcastResponse[]) => {
-      const result = data.map((item) => ({
+    .then((data: PodcastResponse[]) =>
+      data.map((item) => ({
         ...item,
-        release: new Date(item.updated),
-      }));
-
-      return result;
-    })
+        updated: new Date(item.updated),
+      }))
+    )
     .catch((err) => {
       console.error(err);
       return err;
@@ -53,11 +51,6 @@ const getIndividualPodcastList: Api["getIndividualPodcastList"] = (
       return response;
     })
     .then((response) => response.json())
-    .then((result) =>
-      result.map((item: { updated: string | number | Date; }) => {
-        return { ...item, updated: new Date(item.updated) };
-      })
-    )
     .catch((err) => {
       console.error(err);
       return err;
