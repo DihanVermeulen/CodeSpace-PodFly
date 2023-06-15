@@ -38,8 +38,15 @@ export const DiscoverPage = () => {
     }
   };
 
+  const handleFilterData = (
+    _event: MouseEvent<HTMLElement>,
+    toggleFilter: Filter
+  ) => {
+    if (toggleFilter !== filter) {
+      setFilter(toggleFilter);
+      setFilteredData(filterData(toggleFilter, podcasts));
     }
-  }, [podcasts]);
+  };
 
   return (
     <>
