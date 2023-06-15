@@ -51,7 +51,18 @@ export const DiscoverPage = () => {
   return (
     <>
       <Space height="4rem" />
-      {phase === "LISTING" && <DiscoverList data={podcasts} />}
+      <Box sx={{ padding: "1rem" }}>
+        <ToggleButtonGroup value={filter} onChange={handleFilterData} exclusive>
+          <ToggleButton value="ALL">All</ToggleButton>
+          <ToggleButton value="A-Z">A - Z</ToggleButton>
+          <ToggleButton value="Z-A">Z - A</ToggleButton>
+          <ToggleButton value="MOST_RECENT">Most Recent</ToggleButton>
+          <ToggleButton value="LEAST_RECENT">Least Recent</ToggleButton>
+        </ToggleButtonGroup>
+      </Box>
+      {phase === "LISTING" && filteredData && (
+        <DiscoverList data={filteredData} />
+      )}
     </>
   );
 };
