@@ -1,12 +1,6 @@
-import { ChangeEvent, useRef, useState, useEffect } from "react";
-import { Box, Modal } from "@mui/material";
-import {
-  IconButton,
-  FormControl,
-  TextField,
-  InputAdornment,
-  OutlinedInput,
-} from "@mui/material";
+import { ChangeEvent, useState, FormEvent, FocusEvent } from "react";
+import { Modal } from "@mui/material";
+import { IconButton, FormControl, OutlinedInput } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { StyledModal } from "./Search.styled";
 
@@ -14,14 +8,17 @@ export const SearchModal = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
 
-  const handleClose = () => {
-    setIsOpen(false);
+  const handleClose = (event: FocusEvent<HTMLInputElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+      setIsOpen(false);
+    }
   };
   const handleOpen = () => {
     setIsOpen(true);
   };
 
-  const handleSearch = (event: SubmitEvent) => {
+  const handleSearch = (event: FormEvent<HTMLFormElement>) => {
+    console.log("form event firing");
     event.preventDefault();
   };
 
@@ -42,17 +39,16 @@ export const SearchModal = () => {
       </IconButton>
       <Modal open={isOpen} onClose={handleClose}>
         <StyledModal>
-          <form>
-            <FormControl>
+          <form onSubmit={handleSearch}>
+            <FormControl onBlur={handleClose}>
               <OutlinedInput
                 value={query}
                 sx={{ outlineColor: "#fff", color: "#ffffff" }}
                 name="search"
                 size="small"
-                onBlur={handleClose}
                 onChange={handleQueryChange}
                 endAdornment={
-                  <IconButton>
+                  <IconButton type="submit">
                     <Search sx={{ color: "#ffffff" }} />
                   </IconButton>
                 }
