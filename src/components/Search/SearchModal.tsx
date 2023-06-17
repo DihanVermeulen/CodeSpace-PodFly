@@ -3,10 +3,12 @@ import { Modal } from "@mui/material";
 import { IconButton, FormControl, OutlinedInput } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { StyledModal } from "./Search.styled";
+import { useNavigate } from "react-router-dom";
 
 export const SearchModal = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleClose = (event: FocusEvent<HTMLInputElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget as Node)) {
@@ -18,8 +20,9 @@ export const SearchModal = () => {
   };
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
-    console.log("form event firing");
     event.preventDefault();
+    if (isOpen) setIsOpen(false);
+    navigate(`/discover?search=${query}`);
   };
 
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
