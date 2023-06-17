@@ -5,6 +5,7 @@ import { store } from "../../model";
 import { useState, useEffect, MouseEvent } from "react";
 import { PodcastPreview } from "../../@types/podcast";
 import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { useSearch } from "../../hooks/useSearch";
 
 type Filter = "A-Z" | "Z-A" | "MOST_RECENT" | "LEAST_RECENT" | "ALL";
 
@@ -15,6 +16,7 @@ export const DiscoverPage = () => {
     null
   );
   const [filter, setFilter] = useState<Filter>("ALL");
+  const { searchData, setSearchData } = useSearch(podcasts);
 
   useEffect(() => {
     if (podcasts.length > 0) {
@@ -53,6 +55,8 @@ export const DiscoverPage = () => {
     }
   };
 
+  console.log(searchData);
+
   const handleFilterData = (
     _event: MouseEvent<HTMLElement>,
     toggleFilter: Filter
@@ -60,6 +64,7 @@ export const DiscoverPage = () => {
     if (toggleFilter !== filter) {
       setFilter(toggleFilter);
       setFilteredData(filterData(toggleFilter, podcasts));
+      setSearchData([])
     }
   };
 
@@ -67,16 +72,42 @@ export const DiscoverPage = () => {
     <>
       <Space height="4rem" />
       <Box sx={{ padding: "1rem" }}>
-        <ToggleButtonGroup value={filter} onChange={handleFilterData} exclusive>
-          <ToggleButton value="ALL">All</ToggleButton>
-          <ToggleButton value="A-Z">A - Z</ToggleButton>
-          <ToggleButton value="Z-A">Z - A</ToggleButton>
-          <ToggleButton value="MOST_RECENT">Most Recent</ToggleButton>
-          <ToggleButton value="LEAST_RECENT">Least Recent</ToggleButton>
+        <ToggleButtonGroup
+          size="small"
+          value={filter}
+          onChange={handleFilterData}
+          exclusive
+          aria-label="sort"
+        >
+          <ToggleButton sx={{ fontSize: 12 }} value="ALL" aria-label="show all">
+            All
+          </ToggleButton>
+          <ToggleButton sx={{ fontSize: 12 }} value="A-Z" aria-label="a to z">
+            A - Z
+          </ToggleButton>
+          <ToggleButton sx={{ fontSize: 12 }} value="Z-A" aria-label="z to a">
+            Z - A
+          </ToggleButton>
+          <ToggleButton
+            sx={{ fontSize: 12 }}
+            value="MOST_RECENT"
+            aria-label="most recent"
+          >
+            Most Recent
+          </ToggleButton>
+          <ToggleButton
+            sx={{ fontSize: 12 }}
+            value="LEAST_RECENT"
+            aria-label="least recent"
+          >
+            Least Recent
+          </ToggleButton>
         </ToggleButtonGroup>
       </Box>
-      {phase === "LISTING" && filteredData && (
-        <DiscoverList data={filteredData} />
+      {phase === "LISTING" && searchData.length > 0 ? (
+        <DiscoverList data={searchData} />
+      ) : (
+        filteredData && <DiscoverList data={filteredData} />
       )}
     </>
   );
