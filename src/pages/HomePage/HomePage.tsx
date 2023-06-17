@@ -44,6 +44,7 @@ export const HomePage = () => {
           paddingTop={"0.3rem"}
           paddingBottom={"0.6rem"}
           marginLeft={"1rem"}
+          sx={{ overflowX: "auto" }}
         >
           <Skeleton
             variant="rounded"
