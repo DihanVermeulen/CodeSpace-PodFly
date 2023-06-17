@@ -64,7 +64,7 @@ export const DiscoverPage = () => {
     if (toggleFilter !== filter) {
       setFilter(toggleFilter);
       setFilteredData(filterData(toggleFilter, podcasts));
-      setSearchData([])
+      setSearchData([]);
     }
   };
 
