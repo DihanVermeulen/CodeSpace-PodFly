@@ -1,6 +1,6 @@
 import StyledComponents from "./Preview.styled";
 const { Label, Card, Image } = StyledComponents;
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 export type Preview = {
   image: string;
