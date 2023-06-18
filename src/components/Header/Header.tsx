@@ -1,8 +1,9 @@
 import { IconButton, CssBaseline, Box } from "@mui/material";
-import { Menu, Search, Person } from "@mui/icons-material";
+import { Menu } from "@mui/icons-material";
 import StyledComponents from "./Header.styled";
 import { useLocation } from "react-router-dom";
 import { SearchModal } from "../Search";
+import { DropdownMenu } from "../DropdownMenu";
 
 export const Header = () => {
   const location = useLocation();
@@ -52,9 +53,7 @@ export const Header = () => {
         </div>
         <Box display={"flex"}>
           <SearchModal />
-          <IconButton color="inherit" aria-label="profile" sx={{ mr: 1 }}>
-            <Person />
-          </IconButton>
+          <DropdownMenu />
         </Box>
       </StyledComponents.Header>
     </>
