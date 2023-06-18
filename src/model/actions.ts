@@ -15,6 +15,10 @@ export const createModalActions = () => {
   };
 };
 
+/**
+ * Action creator for auth functions
+ * @returns actions
+ */
 export const createAuthActions = () => {
   return {
     signIn: useStore(store, (state) => state.auth.signIn),
