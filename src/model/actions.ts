@@ -15,4 +15,12 @@ export const createModalActions = () => {
   };
 };
 
-export default { createModalActions };
+export const createAuthActions = () => {
+  return {
+    signIn: useStore(store, (state) => state.auth.signIn),
+    signUp: useStore(store, (state) => state.auth.signUp),
+    signOut: useStore(store, (state) => state.auth.signOut),
+  };
+};
+
+export default { createModalActions, createAuthActions };
