@@ -72,13 +72,10 @@ export const createStore = (api: Api): StoreApi<Store> => {
             password,
           })
           .then(({ data: { session }, error }) => {
-            if (error) {
-              throw error;
-            }
-            set((state) => ({
-              auth: { ...state.auth, session },
-            }));
-            return session;
+            if (!error)
+              set((state) => ({
+                auth: { ...state.auth, session },
+              }));
           });
       },
       signIn: (email: string, password: string) => {
@@ -87,20 +84,10 @@ export const createStore = (api: Api): StoreApi<Store> => {
             email,
             password,
           })
-          .then();
+          .then(({ data: { session }, error }) => {
+            if (!error) set((state) => ({ auth: { ...state.auth, session } }));
+          });
       },
-      // .then(({ data: { user }, error }) => {
-      //   if (error) {
-      //     return error;
-      //   }
-      //   set((state) => ({
-      //     auth: { ...state.auth, user },
-      //   }));
-      //   return user;
-      // })
-      // .catch((error) => {
-      //   return error;
-      // }),
       signOut: async () => {
         await supabase.auth.signOut();
         set((state) => ({ auth: { ...state.auth, session: null } }));
