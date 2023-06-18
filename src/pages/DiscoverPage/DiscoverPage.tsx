@@ -6,8 +6,7 @@ import { useState, useEffect, MouseEvent } from "react";
 import { PodcastPreview } from "../../@types/podcast";
 import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useSearch } from "../../hooks/useSearch";
-
-type Filter = "A-Z" | "Z-A" | "MOST_RECENT" | "LEAST_RECENT" | "ALL";
+import { Filter } from "../../@types/filters";
 
 export const DiscoverPage = () => {
   const podcasts = useStore(store, (state) => state.list);
