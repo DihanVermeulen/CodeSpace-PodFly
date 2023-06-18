@@ -3,7 +3,7 @@ import { Menu } from "@mui/icons-material";
 import StyledComponents from "./Header.styled";
 import { useLocation } from "react-router-dom";
 import { SearchModal } from "../Search";
-import { DropdownMenu } from "../DropdownMenu";
+import { DropdownMenuHeader } from "../DropdownMenuHeader";
 
 export const Header = () => {
   const location = useLocation();
@@ -53,7 +53,7 @@ export const Header = () => {
         </div>
         <Box display={"flex"}>
           <SearchModal />
-          <DropdownMenu />
+          <DropdownMenuHeader />
         </Box>
       </StyledComponents.Header>
     </>
