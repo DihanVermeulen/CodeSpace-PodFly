@@ -1,6 +1,8 @@
 import { createStore as createZustandStore, StoreApi } from "zustand";
 import { Api, createApi } from "../api";
 import { PodcastPreview } from "../@types/podcast";
+import { supabase } from "../services/supabase";
+import { User } from "@supabase/supabase-js";
 
 type ModalStore = {
   isOpen: boolean;
@@ -14,10 +16,18 @@ type ModalStore = {
   updateData: (data: any) => void;
 };
 
+type AuthStore = {
+  user: User | null;
+  signUp: (email: string, password: string) => void;
+  signIn: (email: string, password: string) => void;
+  signOut: () => Promise<void>;
+};
+
 type Store = {
   list: PodcastPreview[];
   fetchPodcastList: () => void;
   modal: ModalStore;
+  auth: AuthStore;
 };
 
 const createTypedStore = createZustandStore<Store>();
@@ -51,6 +61,50 @@ export const createStore = (api: Api): StoreApi<Store> => {
       if (!(data instanceof Error)) {
         set({ list: data });
       }
+    },
+    auth: {
+      user: null,
+      signUp: async (email: string, password: string) => {
+        try {
+          const {
+            data: { user },
+            error,
+          } = await supabase.auth.signUp({
+            email,
+            password,
+          });
+
+          if (error) throw error;
+          set((state) => ({
+            auth: { ...state.auth, user: user },
+          }));
+        } catch (error) {
+          console.error("Sign-up error:", error.message);
+        }
+      },
+      signIn: async (email: string, password: string) => {
+        try {
+          const {
+            data: { user },
+            error,
+          } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+          if (error) throw error;
+          set((state) => ({ auth: { ...state.auth, user: user } }));
+        } catch (error) {
+          console.error("Sign-in error:", error.message);
+        }
+      },
+      signOut: async () => {
+        try {
+          await supabase.auth.signOut();
+          set((state) => ({ auth: { ...state.auth, user: null } }));
+        } catch (error) {
+          console.error("Sign-out error:", error.message);
+        }
+      },
     },
   }));
 
