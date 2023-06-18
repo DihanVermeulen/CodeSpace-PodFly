@@ -2,7 +2,7 @@ import { createStore as createZustandStore, StoreApi } from "zustand";
 import { Api, createApi } from "../api";
 import { PodcastPreview } from "../@types/podcast";
 import { supabase } from "../services/supabase";
-import { User } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 
 type ModalStore = {
   isOpen: boolean;
@@ -17,10 +17,11 @@ type ModalStore = {
 };
 
 type AuthStore = {
-  user: User | null;
+  session: Session | null;
   signUp: (email: string, password: string) => void;
   signIn: (email: string, password: string) => void;
-  signOut: () => Promise<void>;
+  signOut: () => void;
+  fetchSession: () => void;
 };
 
 type Store = {
@@ -63,52 +64,62 @@ export const createStore = (api: Api): StoreApi<Store> => {
       }
     },
     auth: {
-      user: null,
-      signUp: async (email: string, password: string) => {
-        try {
-          const {
-            data: { user },
-            error,
-          } = await supabase.auth.signUp({
+      session: null,
+      signUp: (email: string, password: string) => {
+        supabase.auth
+          .signUp({
             email,
             password,
+          })
+          .then(({ data: { session }, error }) => {
+            if (error) {
+              throw error;
+            }
+            set((state) => ({
+              auth: { ...state.auth, session },
+            }));
+            return session;
           });
-
-          if (error) throw error;
-          set((state) => ({
-            auth: { ...state.auth, user: user },
-          }));
-        } catch (error) {
-          console.error("Sign-up error:", error.message);
-        }
       },
-      signIn: async (email: string, password: string) => {
-        try {
-          const {
-            data: { user },
-            error,
-          } = await supabase.auth.signInWithPassword({
+      signIn: (email: string, password: string) => {
+        supabase.auth
+          .signInWithPassword({
             email,
             password,
-          });
-          if (error) throw error;
-          set((state) => ({ auth: { ...state.auth, user: user } }));
-        } catch (error) {
-          console.error("Sign-in error:", error.message);
-        }
+          })
+          .then();
       },
+      // .then(({ data: { user }, error }) => {
+      //   if (error) {
+      //     return error;
+      //   }
+      //   set((state) => ({
+      //     auth: { ...state.auth, user },
+      //   }));
+      //   return user;
+      // })
+      // .catch((error) => {
+      //   return error;
+      // }),
       signOut: async () => {
-        try {
-          await supabase.auth.signOut();
-          set((state) => ({ auth: { ...state.auth, user: null } }));
-        } catch (error) {
-          console.error("Sign-out error:", error.message);
-        }
+        await supabase.auth.signOut();
+        set((state) => ({ auth: { ...state.auth, session: null } }));
+      },
+      fetchSession: async () => {
+        await supabase.auth
+          .getSession()
+          .then(({ data: { session }, error }) => {
+            if (!error) {
+              console.log("session: ", session);
+              set((state) => ({ auth: { ...state.auth, session } }));
+            }
+          });
       },
     },
   }));
 
   store.getState().fetchPodcastList();
+  store.getState().auth.fetchSession();
 
   return store;
 };
