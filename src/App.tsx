@@ -4,6 +4,7 @@ import { DiscoverPage, FavouritesPage, HomePage, Root } from "./pages";
 import { ViewPodcastPage } from "./pages/ViewPodcastPage";
 import { theme } from "./styles";
 import { Player } from "./components/Player";
+import AuthPage from "./pages/AuthPage/AuthPage.tsx";
 
 /**
  * @returns router content
@@ -22,6 +23,8 @@ const RouterContent = () => {
           <Route path="/favourites" element={<FavouritesPage />} />
         </Route>
         <Route path="/view/:id" element={<ViewPodcastPage />} />
+        <Route path="/signin" element={<AuthPage page="SIGNIN" />} />
+        <Route path="/signup" element={<AuthPage page="SIGNUP" />} />
       </Routes>
     </>
   );
