@@ -6,11 +6,11 @@ import {
   ListItemText,
 } from "@mui/material";
 import { Login, Logout, Person } from "@mui/icons-material";
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks";
 
-export const DropdownMenu = () => {
+export const DropdownMenuHeader = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -76,4 +76,4 @@ export const DropdownMenu = () => {
   );
 };
 
-export default DropdownMenu;
+export default DropdownMenuHeader;
