@@ -24,4 +24,10 @@ export const getAppState = () => {
   };
 };
 
-export default { getModalState, getAppState };
+export const getAuthState = () => {
+  return {
+    user: useStore(store, (state) => state.auth.user),
+  };
+};
+
+export default { getModalState, getAppState, getAuthState };
