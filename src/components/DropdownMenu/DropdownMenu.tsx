@@ -5,7 +5,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { Login, Person } from "@mui/icons-material";
+import { Login, Logout, Person } from "@mui/icons-material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks";
@@ -66,9 +66,9 @@ export const DropdownMenu = () => {
         {session && (
           <MenuItem onClick={handleSignOut}>
             <ListItemIcon>
-              <Login fontSize="small" />
+              <Logout fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Sign in</ListItemText>
+            <ListItemText>Sign out</ListItemText>
           </MenuItem>
         )}
       </Menu>
