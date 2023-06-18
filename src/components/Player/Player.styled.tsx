@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
+import { Box, Typography, Slider } from "@mui/material";
 
 export const ModalContainer = styled.div<{
   isOpen: boolean;
@@ -37,6 +36,10 @@ export const Header = styled(Box)`
   padding-right: 1rem;
   height: 4rem;
   width: 100%;
+
+  :last-child {
+    margin-left: auto;
+  }
 `;
 
 export const PlayerContainer = styled(Box)`
@@ -83,12 +86,34 @@ export const Title = styled(Typography)<{ as: string }>`
 `;
 
 export const MinimisedPlayer = styled(Box)`
-  display: flex;
-  align-items: center;
+  position: relative;
   height: 100%;
-  padding: 1rem;
   width: 100%;
   justify-content: space-between;
+`;
+
+export const StyledSlider = styled(Slider)`
+  height: 4px;
+
+  & .MuiSlider-thumb {
+    width: 8px;
+    height: 8px;
+    transition: 0.3s cubic-bezier(0.47, 1.64, 0.41, 0.8);
+
+    &::before {
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    &:hover,
+    &.Mui-active {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  & .MuiSlider-rail {
+    opacity: 0.28;
+  }
 `;
 
 export default {
@@ -100,4 +125,5 @@ export default {
   Image,
   Title,
   MinimisedPlayer,
+  StyledSlider
 };
