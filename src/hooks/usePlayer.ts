@@ -31,7 +31,6 @@ export const usePlayer = () => {
       const episodeParam = searchParams.get("episode");
       if (typeof podcastParam === "string")
         fetchIndividualPodcast(podcastParam).then((data) => {
-          console.log("fetched data: ", data);
           if (
             typeof seasonParam === "string" ||
             typeof episodeParam === "string"
