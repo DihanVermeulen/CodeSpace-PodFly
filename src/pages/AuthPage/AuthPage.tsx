@@ -10,11 +10,10 @@ import {
   Button,
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { useState, MouseEvent, ChangeEvent, FormEvent } from "react";
+import { useState, MouseEvent, ChangeEvent, FormEvent, useEffect } from "react";
 import { Space } from "../../styles";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks";
-import { useEffectOnce } from "react-use";
 
 type AuthPage = {
   page: "SIGNIN" | "SIGNUP";
@@ -33,12 +32,16 @@ export const AuthPage = (props: AuthPage) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
-  useEffectOnce(() => {
+  /* Checks if there is a session then navigates the user to the
+   * home page. getSession is in the dependencies array to run the
+   * hook if there is a change in the session object.
+   */
+  useEffect(() => {
     const session = getSession();
     if (session) {
       navigate("/");
     }
-  });
+  }, [getSession]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -89,7 +92,7 @@ export const AuthPage = (props: AuthPage) => {
   const handleSubmitForm = formActions.handleSubmitForm;
   const handleFormChange = formActions.handleFormChange;
 
-  // Checks which page should be displayed and displays that page
+  // Checks which page should be displayed then displays that page
   if (page === "SIGNIN") {
     return (
       <StyledContainer>
