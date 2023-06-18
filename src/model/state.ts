@@ -26,7 +26,7 @@ export const getAppState = () => {
 
 export const getAuthState = () => {
   return {
-    user: useStore(store, (state) => state.auth.user),
+    session: useStore(store, (state) => state.auth.session),
   };
 };
 
