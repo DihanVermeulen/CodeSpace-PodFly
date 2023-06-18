@@ -97,7 +97,6 @@ export const createStore = (api: Api): StoreApi<Store> => {
           .getSession()
           .then(({ data: { session }, error }) => {
             if (!error) {
-              console.log("session: ", session);
               set((state) => ({ auth: { ...state.auth, session } }));
             }
           });
