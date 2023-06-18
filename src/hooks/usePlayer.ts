@@ -116,7 +116,6 @@ export const usePlayer = () => {
   };
 
   const handleMaximiseModal = () => {
-    console.log("Maximising modal");
     navigate("/listen?showId=", {
       state: { background: location },
     });
