@@ -7,6 +7,7 @@ import utilsStyles from "../../styles/utils.styles";
 import { store } from "../../model";
 import { useStore } from "zustand";
 import { ViewList } from "../../components/ViewList";
+import { useAuth } from "../../hooks";
 
 const Text = styled(Typography)<{ as: string }>`
   font-family: "Poppins", sans-serif;
@@ -15,6 +16,8 @@ const Text = styled(Typography)<{ as: string }>`
 export const HomePage = () => {
   const podcasts: PodcastPreview[] = useStore(store, (state) => state.list);
   const [phase, setPhase] = useState("LOADING");
+  const { getSession } = useAuth();
+  const session = getSession();
 
   const { Space } = utilsStyles;
 
@@ -29,7 +32,7 @@ export const HomePage = () => {
       <Space height={"4rem"} />
       <Box marginLeft={"0.6rem"}>
         <Text variant="body1" as="p" fontWeight={300}>
-          Hi, guest
+          Hi, {session?.user.email ? session.user.email.split("@")[0] : "guest"}
         </Text>
         <Text variant="h5" as="h2" fontWeight={600}>
           This week's hottest
