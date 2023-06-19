@@ -23,7 +23,7 @@ type ModalStore = {
 
 type FavouritesStore = {
   favouritesList: IndividualPodcast[];
-  getFavouritesEpisodes: (userID: string) => void;
+  getFavouritesEpisodes: () => void;
 };
 
 type AuthStore = {
@@ -112,7 +112,7 @@ export const createStore = (api: Api): StoreApi<Store> => {
               set((state) => ({ auth: { ...state.auth, session } }));
               const userID = session?.user.id;
               if (userID) {
-                store.getState().favourites.getFavouritesEpisodes(userID);
+                store.getState().favourites.getFavouritesEpisodes();
               }
             }
           });
@@ -123,7 +123,7 @@ export const createStore = (api: Api): StoreApi<Store> => {
             set((state) => ({ auth: { ...state.auth, session } }));
             const userID = session?.user.id;
             if (typeof userID !== "undefined") {
-              store.getState().favourites.getFavouritesEpisodes(userID);
+              store.getState().favourites.getFavouritesEpisodes();
             }
           } else if (event === "SIGNED_OUT") {
             set((state) => ({ auth: { ...state.auth, session: null } }));
@@ -133,12 +133,16 @@ export const createStore = (api: Api): StoreApi<Store> => {
     },
     favourites: {
       favouritesList: [],
-      getFavouritesEpisodes: async (userID: string) => {
-        const favourites = await fetchFavouritesInfoFromDatabase(userID);
-        const allIndividualPodcasts = await fetchAllIndividualPodcasts([
-          "10716",
-          "5675",
-        ]);
+      getFavouritesEpisodes: async () => {
+        const userID = store.getState().auth.session?.user.id;
+        if (!userID) throw new Error("User id is expected but none was found");
+        const favourites: any = await fetchFavouritesInfoFromDatabase(userID);
+        const favouriteIDs = favourites.map(
+          (row: { show_id: any }) => row.show_id
+        );
+        const allIndividualPodcasts = await fetchAllIndividualPodcasts(
+          favouriteIDs
+        );
         if (favourites && allIndividualPodcasts) {
           const filteredFavourites = createFavouritesArray(
             allIndividualPodcasts,
