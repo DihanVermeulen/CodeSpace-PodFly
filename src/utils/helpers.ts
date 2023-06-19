@@ -1,4 +1,9 @@
 import { IndividualPodcast } from "../@types/podcast";
+import {
+  IndividualPodcast,
+  IndividualPodcastEpisode,
+  IndividualPodcastSeason,
+} from "../@types/podcast";
 import { createApi } from "../api";
 import { supabase } from "../services/supabase";
 const api = createApi();
