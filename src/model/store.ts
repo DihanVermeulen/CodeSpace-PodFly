@@ -131,6 +131,27 @@ export const createStore = (api: Api): StoreApi<Store> => {
         });
       },
     },
+    favourites: {
+      favouritesList: [],
+      getFavouritesEpisodes: async (userID: string) => {
+        const favourites = await fetchFavouritesInfoFromDatabase(userID);
+        const allIndividualPodcasts = await fetchAllIndividualPodcasts([
+          "10716",
+          "5675",
+        ]);
+        if (favourites && allIndividualPodcasts) {
+          const filteredFavourites = createFavouritesArray(
+            allIndividualPodcasts,
+            favourites as any
+          );
+          set((state) => ({
+            favourites: {
+              ...state.favourites,
+              favouritesList: filteredFavourites,
+            },
+          }));
+        }
+      },
     },
   }));
 
