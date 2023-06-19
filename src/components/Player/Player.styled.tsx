@@ -86,7 +86,6 @@ export const Title = styled(Typography)<{ as: string }>`
 `;
 
 export const MinimisedPlayer = styled(Box)`
-  position: relative;
   height: 100%;
   width: 100%;
   justify-content: space-between;
