@@ -16,7 +16,7 @@ export const getModalState = () => {
 
 /**
  * Gets the app's state
- * @returns state
+ * @returns App state
  */
 export const getAppState = () => {
   return {
@@ -24,6 +24,10 @@ export const getAppState = () => {
   };
 };
 
+/**
+ * Gets the Auth state
+ * @returns Auth state
+ */
 export const getAuthState = () => {
   return {
     session: useStore(store, (state) => state.auth.session),
