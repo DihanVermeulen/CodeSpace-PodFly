@@ -4,4 +4,5 @@ type PlayerData = {
   episodeNumber: number;
   season: number;
   image: string;
+  podcast: string;
 };
