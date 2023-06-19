@@ -27,4 +27,17 @@ export const createAuthActions = () => {
   };
 };
 
-export default { createModalActions, createAuthActions };
+export const createFavouritesActions = () => {
+  return {
+    getFavourites: useStore(
+      store,
+      (state) => state.favourites.getFavouritesEpisodes
+    ),
+  };
+};
+
+export default {
+  createModalActions,
+  createAuthActions,
+  createFavouritesActions,
+};
