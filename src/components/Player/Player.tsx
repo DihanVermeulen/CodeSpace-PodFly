@@ -44,6 +44,7 @@ export const Player = () => {
 
   return (
     <>
+      {playerData && <audio ref={audioRef} src={playerData.audioSrc} />}
       <ModalContainer isMaximised={isMaximised} isOpen={isOpen}>
         {modalState.isMaximised && (
           <>
@@ -80,9 +81,8 @@ export const Player = () => {
               </p>
             </ContentContainer>
             <PlayerContainer>
-              <audio ref={audioRef} src={playerData.audioSrc} />
               <StyledSlider
-                aria-aria-label="time-indicator"
+                aria-label="time-indicator"
                 value={currentTime}
                 min={0}
                 max={duration}
@@ -109,77 +109,80 @@ export const Player = () => {
           </>
         )}
 
-        {playerData && !modalState.isMaximised && (
-          <MinimisedPlayer>
-            <audio ref={audioRef} src={playerData.audioSrc} />
-            <Box>
-              <StyledSlider
-                aria-label="time-indicator"
-                value={currentTime}
-                min={0}
-                max={duration}
-                step={0.1}
-                onChange={handleProgressChange as any}
-                onMouseDown={handleDragStart}
-                onMouseUp={handleDragEnd}
-                onTouchStart={handleDragStart}
-                onTouchEnd={handleDragEnd}
-                sx={{
-                  color: "#D7A6B3",
-                  width: "100%",
-                  margin: 0,
-                  padding: 0,
-                  position: "absolute",
-                  top: 0,
-                  height: "5px",
-                }}
-              />
-            </Box>
-            <Box
+        <MinimisedPlayer display={!modalState.isMaximised ? "block" : "none"}>
+          <Box
+            sx={{
+              height: "1rem",
+              display: "flex",
+              alignItems: "center",
+              paddingTop: "1rem",
+              // backgroundColor: "blue",
+            }}
+          >
+            <StyledSlider
+              aria-label="time-indicator"
+              value={currentTime}
+              min={0}
+              max={duration}
+              step={0.1}
+              onChange={handleProgressChange as any}
+              onMouseDown={handleDragStart}
+              onMouseUp={handleDragEnd}
+              onTouchStart={handleDragStart}
+              onTouchEnd={handleDragEnd}
               sx={{
-                display: "flex",
-                alignItems: "center",
-                position: "absolute",
-                bottom: 0,
-                height: "3rem",
-                padding: "1rem",
+                color: "#D7A6B3",
                 width: "100%",
+                margin: 0,
+                padding: 0,
+                height: "5px",
               }}
-            >
-              <Image
-                width={"2.5rem"}
-                height={"2.5rem"}
-                src={playerData?.image}
-              />
-              <Box sx={{ marginLeft: "1rem" }}>
-                <Typography>{playerData.episodeTitle}</Typography>
-                <Typography color={"#a1a1a1"}>
-                  Episode: {playerData.episodeNumber}
-                </Typography>
-              </Box>
-              <IconButton
-                onClick={handlePlayPause}
-                size="small"
-                sx={{ marginLeft: "auto" }}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              position: "absolute",
+              bottom: 0,
+              height: "3rem",
+              padding: "1rem",
+              width: "100%",
+            }}
+          >
+            <Image width={"2.5rem"} height={"2.5rem"} src={playerData?.image} />
+            <Box sx={{ marginLeft: "1rem" }}>
+              <Typography fontSize="12px" component="h1">
+                {playerData?.episodeTitle}
+              </Typography>
+              <Typography
+                fontSize="10px"
+                variant="caption"
+                component="h1"
+                color={"#a1a1a1"}
               >
-                {isPlaying ? (
-                  <Pause sx={{ fontSize: "2rem" }} />
-                ) : (
-                  <PlayArrow sx={{ fontSize: "2rem" }} />
-                )}
-              </IconButton>
-              <IconButton onClick={handleCloseModal}>
-                <Close />
-              </IconButton>
-              <IconButton
-                onClick={handleMaximiseModal}
-                style={{ zIndex: 1000 }}
-              >
-                <ArrowDropUp fontSize="large" />
-              </IconButton>
+                Episode: {playerData?.episodeNumber}
+              </Typography>
             </Box>
-          </MinimisedPlayer>
-        )}
+            <IconButton
+              onClick={handlePlayPause}
+              size="small"
+              sx={{ marginLeft: "auto" }}
+            >
+              {isPlaying ? (
+                <Pause sx={{ fontSize: "2rem" }} />
+              ) : (
+                <PlayArrow sx={{ fontSize: "2rem" }} />
+              )}
+            </IconButton>
+            <IconButton onClick={handleCloseModal}>
+              <Close />
+            </IconButton>
+            <IconButton onClick={handleMaximiseModal} style={{ zIndex: 1000 }}>
+              <ArrowDropUp fontSize="large" />
+            </IconButton>
+          </Box>
+        </MinimisedPlayer>
 
         {!playerData && (
           <LoadingStateContainer sx={{ display: "flex" }}>
