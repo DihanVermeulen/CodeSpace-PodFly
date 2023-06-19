@@ -35,7 +35,7 @@ export const useAudioPlayer = () => {
   }, [isDragging, audioRef]);
 
   const handleProgressChange = (
-    _event: React.ChangeEvent<{}>,
+    _event: Event,
     newValue: number | number[]
   ) => {
     if (typeof newValue === "number") {
