@@ -1,8 +1,13 @@
 import { createStore as createZustandStore, StoreApi } from "zustand";
 import { Api, createApi } from "../api";
-import { PodcastPreview } from "../@types/podcast";
+import { IndividualPodcast, PodcastPreview } from "../@types/podcast";
 import { supabase } from "../services/supabase";
 import { Session } from "@supabase/supabase-js";
+import {
+  createFavouritesArray,
+  fetchAllIndividualPodcasts,
+  fetchFavouritesInfoFromDatabase,
+} from "../utils/helpers";
 
 type ModalStore = {
   isOpen: boolean;
