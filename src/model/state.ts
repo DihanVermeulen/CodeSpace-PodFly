@@ -44,4 +44,4 @@ export const getFavouritesState = () => {
   };
 };
 
-export default { getModalState, getAppState, getAuthState };
+export default { getModalState, getAppState, getAuthState, getFavouritesState };
