@@ -1,9 +1,4 @@
 import { IndividualPodcast } from "../@types/podcast";
-import {
-  IndividualPodcast,
-  IndividualPodcastEpisode,
-  IndividualPodcastSeason,
-} from "../@types/podcast";
 import { createApi } from "../api";
 import { supabase } from "../services/supabase";
 const api = createApi();
@@ -59,34 +54,52 @@ export const createFavouritesArray = (
 ) => {
   const filteredPodcasts: IndividualPodcast[] = [];
 
-  for (const podcast of allPodcasts) {
-    const filteredSeasons: IndividualPodcastSeason[] = [];
+  for (const row of fetchedRows) {
+    const { episode, season, show_id } = row;
 
-    for (const season of podcast.seasons) {
-      const filteredEpisodes: IndividualPodcastEpisode[] = [];
+    // Find the matching podcast based on the show_id
+    const podcast = allPodcasts.find((p) => p.id === show_id);
 
-      for (const episode of season.episodes) {
-        if (
-          fetchedRows.some(
-            (row) =>
-              row.show_id === podcast.id &&
-              row.season === season.season &&
-              row.episode === episode.episode
-          )
-        ) {
-          filteredEpisodes.push(episode);
+    if (podcast) {
+      // Create a new podcast object with the matched season and episodes
+      const newPodcast: IndividualPodcast = {
+        ...podcast,
+        seasons: [],
+      };
+
+      // Find the matched season and episodes
+      const matchedSeason = podcast.seasons.find((s) => s.season === season);
+
+      if (matchedSeason) {
+        const matchedEpisodes = matchedSeason.episodes.filter(
+          (e) => e.episode === episode
+        );
+        if (matchedEpisodes.length > 0) {
+          newPodcast.seasons.push({
+            ...matchedSeason,
+            episodes: matchedEpisodes,
+          });
         }
       }
 
-      if (filteredEpisodes.length > 0) {
-        filteredSeasons.push({ ...season, episodes: filteredEpisodes });
+      // Check if the new podcast has any matched seasons and episodes
+      if (newPodcast.seasons.length > 0) {
+        // Check if the show is already added to the favourites array
+        const existingPodcast = filteredPodcasts.find(
+          (p) => p.id === newPodcast.id
+        );
+
+        if (existingPodcast) {
+          // Add the matched seasons to the existing podcast
+          existingPodcast.seasons.push(...newPodcast.seasons);
+        } else {
+          // Add the new podcast to the favourites array
+          filteredPodcasts.push(newPodcast);
+        }
       }
     }
-
-    if (filteredSeasons.length > 0) {
-      filteredPodcasts.push({ ...podcast, seasons: filteredSeasons });
-    }
   }
+
   return filteredPodcasts;
 };
 /**
@@ -110,23 +123,26 @@ export type AddEpisodeToFavourites = {
   showID: string;
 };
 
-export const addEpisodeToFavourites = async (props: AddEpisodeToFavourites) => {
-  const { userID, episodeNumber, seasonNumber, showID } = props;
-  const { data, error } = await supabase.from("favourites").insert([
-    {
-      user_id: userID,
-      episode: episodeNumber,
-      season: seasonNumber,
-      show_id: showID,
-    },
-  ]);
-
-
-  if (error) {
-    console.error("Error fetching user data:", error);
-  } else {
-    console.log("Fetched user data:", data);
-  }
+export const addEpisodeToFavourites = (
+  props: AddEpisodeToFavourites
+): Promise<void> => {
+  return new Promise(async (resolve, reject) => {
+    const { userID, episodeNumber, seasonNumber, showID } = props;
+    try {
+      const { error } = await supabase.from("favourites").insert([
+        {
+          user_id: userID,
+          episode: episodeNumber,
+          season: seasonNumber,
+          show_id: showID,
+        },
+      ]);
+      if (!error) resolve();
+      reject();
+    } catch (error) {
+      reject(error);
+    }
+  });
 };
 
 export default {
