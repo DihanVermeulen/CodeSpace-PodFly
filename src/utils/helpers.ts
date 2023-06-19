@@ -24,6 +24,25 @@ export const fetchIndividualPodcast = (
 };
 
 /**
+ * Fetches all individual podcasts by the show ids passed in as arguments
+ * @param idArray id of the show
+ */
+export const fetchAllIndividualPodcasts = async (idArray: string[]) => {
+  const podcastArray: IndividualPodcast[] = [];
+  for (const id of idArray) {
+    try {
+      const podcast: IndividualPodcast | Error = await fetchIndividualPodcast(
+        id
+      );
+      if (!(podcast instanceof Error)) podcastArray.push(podcast);
+    } catch (error) {
+      console.error(`Error fetching individual podcast with id ${id}:`, error);
+    }
+  }
+  return podcastArray;
+};
+
+/**
  * Fetches favourite shows info from the Supabase database
  * @param userId
  */
