@@ -117,6 +117,20 @@ export const createStore = (api: Api): StoreApi<Store> => {
             }
           });
       },
+      subscribeToSessionChanges: () => {
+        supabase.auth.onAuthStateChange((event, session) => {
+          if (event === "SIGNED_IN") {
+            set((state) => ({ auth: { ...state.auth, session } }));
+            const userID = session?.user.id;
+            if (typeof userID !== "undefined") {
+              store.getState().favourites.getFavouritesEpisodes(userID);
+            }
+          } else if (event === "SIGNED_OUT") {
+            set((state) => ({ auth: { ...state.auth, session: null } }));
+          }
+        });
+      },
+    },
     },
   }));
 
