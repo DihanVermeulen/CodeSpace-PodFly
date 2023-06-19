@@ -1,19 +1,18 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { createModalActions, getModalState } from "../model";
-import { createApi } from "../api";
 import { useEffect } from "react";
 import {
   IndividualPodcast,
   IndividualPodcastEpisode,
   IndividualPodcastSeason,
 } from "../@types/podcast";
+import { fetchIndividualPodcast } from "../utils/helpers";
 
 export const usePlayer = () => {
   const modalState = getModalState();
   const modalActions = createModalActions();
   const location = useLocation();
   const navigate = useNavigate();
-  const api = createApi();
 
   useEffect(() => {
     if (location.pathname.startsWith("/listen")) {
@@ -37,6 +36,7 @@ export const usePlayer = () => {
           ) {
             const season = parseInt(seasonParam || "");
             const episode = parseInt(episodeParam || "");
+            const podcast = podcastParam;
 
             if (!isNaN(season) && !isNaN(episode)) {
               const foundEpisode = findEpisode(
@@ -51,6 +51,7 @@ export const usePlayer = () => {
                   episodeTitle: foundEpisode.episode.title,
                   audioSrc: foundEpisode.episode.file,
                   image: data.image,
+                  podcast: podcast,
                 });
               }
             }
@@ -80,26 +81,6 @@ export const usePlayer = () => {
         episode,
       };
     }
-  };
-
-  /**
-   * Fetches an individual podcast
-   * @param id - id of podcast
-   * @returns {Promise<IndividualPodcast | Error >}
-   */
-  const fetchIndividualPodcast = (
-    id: string
-  ): Promise<IndividualPodcast | Error> => {
-    return new Promise((resolve, reject) => {
-      try {
-        const data = api.getIndividualPodcastList(id);
-        if (!(data instanceof Error)) {
-          resolve(data);
-        }
-      } catch (error) {
-        reject(error);
-      }
-    });
   };
 
   const handleCloseModal = (event: { stopPropagation: () => void }) => {
