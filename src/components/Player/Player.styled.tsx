@@ -16,7 +16,7 @@ export const ModalContainer = styled.div<{
   height: 100vh;
   overflow-y: hidden;
   background-color: ${(props) =>
-    props.isMaximised ? "rgba(255, 255, 255)" : "rgba(217, 217, 217, 0.4)"};
+    props.isMaximised ? "rgba(255, 255, 255)" : "rgba(217, 217, 217, 0.8)"};
   transition: bottom 0.3s ease-in-out;
   z-index: 999;
   height: ${(props) => (props.isMaximised ? "100%" : "10vh")};
