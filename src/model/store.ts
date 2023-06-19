@@ -21,6 +21,11 @@ type ModalStore = {
   updateData: (data: any) => void;
 };
 
+type FavouritesStore = {
+  favouritesList: IndividualPodcast[];
+  getFavouritesEpisodes: (userID: string) => void;
+};
+
 type AuthStore = {
   session: Session | null;
   signUp: (email: string, password: string) => void;
