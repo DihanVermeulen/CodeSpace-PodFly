@@ -8,7 +8,12 @@ import {
   ListItemText,
 } from "@mui/material";
 
-export const DropdownMenuPlayer = () => {
+export type DropdownMenuPlayer = {
+  addToFavourites: () => void;
+};
+
+export const DropdownMenuPlayer = (props: DropdownMenuPlayer) => {
+  const { addToFavourites } = props;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
 
@@ -39,7 +44,7 @@ export const DropdownMenuPlayer = () => {
           "aria-labelledby": "open-menu-player-button",
         }}
       >
-        <MenuItem>
+        <MenuItem onClick={addToFavourites}>
           <ListItemIcon>
             <BookmarkAdd fontSize="small" />
           </ListItemIcon>
