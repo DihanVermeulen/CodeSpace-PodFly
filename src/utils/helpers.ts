@@ -43,6 +43,48 @@ export const fetchAllIndividualPodcasts = async (idArray: string[]) => {
 };
 
 /**
+ * Filters the fetched individual podcasts based on the associated episodes and seasons from the favorites table
+ * @param allPodcasts array of all individual podcasts
+ * @param fetchedRows fetched rows from favorites table
+ * @returns filtered array of favorite individual podcasts
+ */
+export const createFavouritesArray = (
+  allPodcasts: IndividualPodcast[],
+  fetchedRows: any[]
+) => {
+  const filteredPodcasts: IndividualPodcast[] = [];
+
+  for (const podcast of allPodcasts) {
+    const filteredSeasons: IndividualPodcastSeason[] = [];
+
+    for (const season of podcast.seasons) {
+      const filteredEpisodes: IndividualPodcastEpisode[] = [];
+
+      for (const episode of season.episodes) {
+        if (
+          fetchedRows.some(
+            (row) =>
+              row.show_id === podcast.id &&
+              row.season === season.season &&
+              row.episode === episode.episode
+          )
+        ) {
+          filteredEpisodes.push(episode);
+        }
+      }
+
+      if (filteredEpisodes.length > 0) {
+        filteredSeasons.push({ ...season, episodes: filteredEpisodes });
+      }
+    }
+
+    if (filteredSeasons.length > 0) {
+      filteredPodcasts.push({ ...podcast, seasons: filteredSeasons });
+    }
+  }
+  return filteredPodcasts;
+};
+/**
  * Fetches favourite shows info from the Supabase database
  * @param userId
  */
