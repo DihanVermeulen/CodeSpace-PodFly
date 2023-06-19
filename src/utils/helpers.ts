@@ -46,11 +46,16 @@ export const fetchAllIndividualPodcasts = async (idArray: string[]) => {
  * Fetches favourite shows info from the Supabase database
  * @param userId
  */
-export const fetchFavouritesInfoFromDatabase = async (userId: string) => {
+export const fetchFavouritesInfoFromDatabase = async (userID: string) => {
   const { data, error } = await supabase
     .from("favourites")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userID);
+
+  if (!error) return data;
+  return error;
+};
+
 
   if (error) {
     console.error("Error fetching user data:", error);
