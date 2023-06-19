@@ -157,6 +157,7 @@ export const createStore = (api: Api): StoreApi<Store> => {
 
   store.getState().fetchPodcastList();
   store.getState().auth.fetchSession();
+  store.getState().auth.subscribeToSessionChanges();
 
   return store;
 };
