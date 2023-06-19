@@ -32,6 +32,7 @@ type AuthStore = {
   signIn: (email: string, password: string) => void;
   signOut: () => void;
   fetchSession: () => void;
+  subscribeToSessionChanges: () => void;
 };
 
 type Store = {
@@ -39,6 +40,7 @@ type Store = {
   fetchPodcastList: () => void;
   modal: ModalStore;
   auth: AuthStore;
+  favourites: FavouritesStore;
 };
 
 const createTypedStore = createZustandStore<Store>();
