@@ -30,4 +30,14 @@ export const getAuthState = () => {
   };
 };
 
+/**
+ * Gets the user favourites state
+ * @returns favourites state
+ */
+export const getFavouritesState = () => {
+  return {
+    favouritesList: useStore(store, (state) => state.favourites.favouritesList),
+  };
+};
+
 export default { getModalState, getAppState, getAuthState };
