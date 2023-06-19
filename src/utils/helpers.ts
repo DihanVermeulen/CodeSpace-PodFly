@@ -56,6 +56,24 @@ export const fetchFavouritesInfoFromDatabase = async (userID: string) => {
   return error;
 };
 
+export type AddEpisodeToFavourites = {
+  userID: string;
+  episodeNumber: number;
+  seasonNumber: number;
+  showID: string;
+};
+
+export const addEpisodeToFavourites = async (props: AddEpisodeToFavourites) => {
+  const { userID, episodeNumber, seasonNumber, showID } = props;
+  const { data, error } = await supabase.from("favourites").insert([
+    {
+      user_id: userID,
+      episode: episodeNumber,
+      season: seasonNumber,
+      show_id: showID,
+    },
+  ]);
+
 
   if (error) {
     console.error("Error fetching user data:", error);
@@ -64,4 +82,9 @@ export const fetchFavouritesInfoFromDatabase = async (userID: string) => {
   }
 };
 
-export default { fetchIndividualPodcast, fetchFavouritesInfoFromDatabase };
+export default {
+  fetchIndividualPodcast,
+  fetchFavouritesInfoFromDatabase,
+  addEpisodeToFavourites,
+  fetchAllIndividualPodcasts,
+};
