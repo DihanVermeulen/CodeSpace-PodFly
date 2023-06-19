@@ -110,6 +110,10 @@ export const createStore = (api: Api): StoreApi<Store> => {
           .then(({ data: { session }, error }) => {
             if (!error) {
               set((state) => ({ auth: { ...state.auth, session } }));
+              const userID = session?.user.id;
+              if (userID) {
+                store.getState().favourites.getFavouritesEpisodes(userID);
+              }
             }
           });
       },
