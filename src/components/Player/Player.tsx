@@ -21,8 +21,13 @@ import {
 } from "@mui/icons-material";
 import { usePlayer } from "../../hooks/usePlayer";
 import { useAudioPlayer } from "../../hooks/useAudioPlayer";
-import { getModalState } from "../../model";
+import {
+  createFavouritesActions,
+  getAuthState,
+  getModalState,
+} from "../../model";
 import { DropdownMenuPlayer } from "../DropdownMenuPlayer";
+import { addEpisodeToFavourites } from "../../utils/helpers";
 
 export const Player = () => {
   const { handleCloseModal, handleMaximiseModal } = usePlayer();
@@ -36,11 +41,32 @@ export const Player = () => {
     handleDragEnd,
     handlePlayPause,
   } = useAudioPlayer();
+  const { session } = getAuthState();
 
   const modalState = getModalState();
   const isOpen = modalState.isOpen;
   const isMaximised = modalState.isMaximised;
   const playerData = modalState.data;
+  const favouritesActions = createFavouritesActions();
+
+  const handleAddEpisodetoFavourites = () => {
+    if (!session) throw new Error("No user is logged in");
+    if (!playerData) return;
+
+    addEpisodeToFavourites({
+      episodeNumber: playerData.episodeNumber,
+      seasonNumber: playerData.season,
+      userID: session.user.id,
+      showID: playerData.podcast,
+    })
+      .then(() => {
+        console.log("Episode added to favourites");
+        favouritesActions.getFavourites();
+      })
+      .catch(() => {
+        throw new Error("Error with adding episode to favourites");
+      });
+  };
 
   return (
     <>
@@ -52,7 +78,9 @@ export const Player = () => {
               <IconButton onClick={handleCloseModal} style={{ zIndex: 1000 }}>
                 <ArrowBack />
               </IconButton>
-              <DropdownMenuPlayer />
+              <DropdownMenuPlayer
+                addToFavourites={handleAddEpisodetoFavourites}
+              />
             </Header>
           </>
         )}
