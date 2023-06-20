@@ -8,6 +8,8 @@ import { store } from "../../model";
 import { useStore } from "zustand";
 import { ViewList } from "../../components/ViewList";
 import { useAuth } from "../../hooks";
+import { PreviouslyListenedList } from "../../components/PreviouslyListenedList";
+import { fetchIndividualPodcast } from "../../utils/helpers";
 
 const Text = styled(Typography)<{ as: string }>`
   font-family: "Poppins", sans-serif;
@@ -18,14 +20,57 @@ export const HomePage = () => {
   const [phase, setPhase] = useState("LOADING");
   const { getSession } = useAuth();
   const session = getSession();
-
-  const { Space } = utilsStyles;
+  const [
+    previouslyPlayedEpisodesFromLocalStorage,
+    _setPreviouslyPlayedEpisodesFromLocalStorage,
+  ] = useState(JSON.parse(localStorage.getItem("playing") || "{}"));
+  const [previouslyListenedToEpisodes, setPreviouslyListenedToEpisodes] =
+    useState<any[] | null>(null);
 
   useEffect(() => {
     if (podcasts.length > 0) {
       setPhase("LISTING");
     }
   }, [podcasts]);
+
+  useEffect(() => {
+    const createPreviouslyListenedToEpisodes = async () => {
+      if (previouslyPlayedEpisodesFromLocalStorage) {
+        const episodesArray = Object.keys(
+          previouslyPlayedEpisodesFromLocalStorage
+        ).flatMap(async (podcast) => {
+          const response = await fetchIndividualPodcast(podcast);
+          if (!(response instanceof Error)) {
+            return Object.keys(
+              previouslyPlayedEpisodesFromLocalStorage[podcast]
+            ).flatMap((season) => {
+              return Object.keys(
+                previouslyPlayedEpisodesFromLocalStorage[podcast][season]
+              ).map((episode) => {
+                return {
+                  podcastID: podcast,
+                  podcastTitle: response.title,
+                  seasonNumber: season,
+                  episodeNumber: episode,
+                  image: response.image,
+                  time: previouslyPlayedEpisodesFromLocalStorage[podcast][
+                    season
+                  ][episode].time,
+                };
+              });
+            });
+          }
+          return [];
+        });
+        const flattenedEpisodesArray = await Promise.all(episodesArray).then(
+          (results) => results.flat()
+        );
+        setPreviouslyListenedToEpisodes(flattenedEpisodesArray);
+      }
+    };
+
+    createPreviouslyListenedToEpisodes();
+  }, []);
 
   return (
     <>
