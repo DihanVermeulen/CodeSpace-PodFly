@@ -10,7 +10,6 @@ export const useAudioPlayer = () => {
   /* If the audio is playing and the user tries to exit the page,
    * a confirmation message is given.
    */
-
   useEffect(() => {
     const giveConfirmationMessageBeforeClosing = (event) => {
       if (isPlaying) {
@@ -38,6 +37,7 @@ export const useAudioPlayer = () => {
       );
   }, [isPlaying]);
 
+  // Handles the time update
   useEffect(() => {
     const audioElement = audioRef.current;
 
@@ -53,6 +53,7 @@ export const useAudioPlayer = () => {
     };
   }, [audioRef]);
 
+  // Handles the dragging of the progress
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isDragging && audioRef.current && !audioRef.current.paused) {
@@ -99,6 +100,7 @@ export const useAudioPlayer = () => {
     duration,
     isDragging,
     isPlaying,
+    setIsPlaying,
     handleProgressChange,
     handleDragStart,
     handleDragEnd,
