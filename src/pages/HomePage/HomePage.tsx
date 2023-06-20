@@ -3,7 +3,7 @@ import { Typography, Skeleton, Stack, Box } from "@mui/material";
 import { Carousel } from "../../components/Carousel";
 import { useState, useEffect } from "react";
 import { PodcastPreview } from "../../@types/podcast";
-import utilsStyles from "../../styles/utils.styles";
+import { Space } from "../../styles/utils.styles";
 import { store } from "../../model";
 import { useStore } from "zustand";
 import { ViewList } from "../../components/ViewList";
