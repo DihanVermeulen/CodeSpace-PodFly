@@ -4,6 +4,7 @@ import {
   IconButton,
   ListItemIcon,
   ListItemText,
+  Avatar,
 } from "@mui/material";
 import { Login, Logout, Person } from "@mui/icons-material";
 import { useState, ReactElement } from "react";
@@ -28,15 +29,30 @@ export const DropdownMenuHeader = () => {
 
   return (
     <>
-      <IconButton
-        id="open-menu-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-      >
-        <Person />
-      </IconButton>
+      {session?.user.email ? (
+        <IconButton
+          id="open-menu-button"
+          aria-controls={open ? "basic-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        >
+          <Avatar sx={{ bgcolor: "purple" }}>
+            {session.user.email[0].toUpperCase()}
+          </Avatar>
+        </IconButton>
+      ) : (
+        <IconButton
+          id="open-menu-button"
+          aria-controls={open ? "basic-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        >
+          <Person />
+        </IconButton>
+      )}
+
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
