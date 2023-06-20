@@ -143,7 +143,6 @@ export const fetchFavouritesInfoFromDatabase = async (userID: string) => {
     .eq("user_id", userID);
 
   if (!error) {
-    console.log("favourites fetched from database: ", data);
     return data;
   }
   return error;
