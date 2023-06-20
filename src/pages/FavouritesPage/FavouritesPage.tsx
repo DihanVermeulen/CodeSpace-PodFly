@@ -15,10 +15,11 @@ import {
   IconButton,
 } from "@mui/material";
 import { useState, MouseEvent } from "react";
-import { BookmarkRemove, ExpandMore } from "@mui/icons-material";
+import { BookmarkRemove, ExpandMore, PlayArrow } from "@mui/icons-material";
 import { createFavouritesActions, getFavouritesState } from "../../model";
 import { removeEpisodeFromFavourites } from "../../utils/helpers";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 export const FavouritesPage = () => {
   const { getSession } = useAuth();
@@ -26,6 +27,7 @@ export const FavouritesPage = () => {
   const { favouritesList } = getFavouritesState();
   const [filter, setFilter] = useState<Filter>("ALL");
   const favouritesActions = createFavouritesActions();
+  const navigate = useNavigate();
 
   const handleFilterData = (
     _event: MouseEvent<HTMLElement>,
@@ -43,8 +45,17 @@ export const FavouritesPage = () => {
     if (userID)
       removeEpisodeFromFavourites({
         episodeID,
-      });
-    favouritesActions.getFavourites();
+      }).then(() => favouritesActions.getFavourites());
+  };
+
+  const handleNavigatetoPlayer = (
+    showID: string,
+    episodeNumber: number,
+    seasonNumber: number
+  ) => {
+    navigate(
+      `/listen?podcast=${showID}&season=${seasonNumber}&episode=${episodeNumber}`
+    );
   };
 
   return (
@@ -108,15 +119,30 @@ export const FavouritesPage = () => {
                       <List dense={true}>
                         {season.episodes.map((episode) => (
                           <ListItem
-                            key={`${item.id}${season.season}${episode.episode}`}
+                            key={episode.id}
                             secondaryAction={
-                              <IconButton
-                                onClick={() =>
-                                  handleRemoveEpisodeFromFavourites(episode.id)
-                                }
-                              >
-                                <BookmarkRemove />
-                              </IconButton>
+                              <>
+                                <IconButton
+                                  onClick={() =>
+                                    handleRemoveEpisodeFromFavourites(
+                                      episode.id
+                                    )
+                                  }
+                                >
+                                  <BookmarkRemove />
+                                </IconButton>
+                                <IconButton
+                                  onClick={() =>
+                                    handleNavigatetoPlayer(
+                                      item.id,
+                                      episode.episode,
+                                      season.season
+                                    )
+                                  }
+                                >
+                                  <PlayArrow />
+                                </IconButton>
+                              </>
                             }
                           >
                             <ListItemText
