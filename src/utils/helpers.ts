@@ -216,6 +216,25 @@ export const formatTime = (timeInSeconds: number) => {
   return `${formattedMinutes}:${formattedSeconds}`;
 };
 
+export const findEpisode = (
+  data: IndividualPodcast,
+  seasonNumber: number,
+  episodeNumber: number
+) => {
+  const season: IndividualPodcastSeason | undefined = data.seasons.find(
+    (item) => item.season === seasonNumber
+  );
+
+  const episode: IndividualPodcastEpisode | undefined = season?.episodes.find(
+    (item) => item.episode === episodeNumber
+  );
+  if (typeof episode !== "undefined") {
+    return {
+      episode,
+    };
+  }
+};
+
 export default {
   fetchIndividualPodcast,
   fetchFavouritesInfoFromDatabase,
