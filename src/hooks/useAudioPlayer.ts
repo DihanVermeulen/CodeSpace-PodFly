@@ -10,20 +10,33 @@ export const useAudioPlayer = () => {
   /* If the audio is playing and the user tries to exit the page,
    * a confirmation message is given.
    */
-  window.addEventListener("beforeunload", function (event) {
-    // Check if audio is playing
-    if (isPlaying) {
-      // Cancel the event
-      event.preventDefault();
-      // Chrome requires returnValue to be set
-      event.returnValue = "";
 
-      // Display a confirmation dialog
-      const confirmationMessage =
-        "Are you sure you want to leave? Your audio will stop playing.";
-      return confirmationMessage;
-    }
-  });
+  useEffect(() => {
+    const giveConfirmationMessageBeforeClosing = (event) => {
+      if (isPlaying) {
+        // Cancel the event
+        event.preventDefault();
+        // Chrome requires returnValue to be set
+        event.returnValue = "";
+
+        // Display a confirmation dialog
+        const confirmationMessage =
+          "Are you sure you want to leave? Your audio will stop playing.";
+        return confirmationMessage;
+      }
+    };
+    // Check if audio is playing
+
+    window.addEventListener(
+      "beforeunload",
+      giveConfirmationMessageBeforeClosing
+    );
+    return () =>
+      window.removeEventListener(
+        "beforeUnload",
+        giveConfirmationMessageBeforeClosing
+      );
+  }, [isPlaying]);
 
   useEffect(() => {
     const audioElement = audioRef.current;
