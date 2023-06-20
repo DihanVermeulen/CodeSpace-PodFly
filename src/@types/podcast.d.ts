@@ -38,5 +38,6 @@ type IndividualPodcastSeason = {
 type IndividualPodcast = {
   id: string;
   title: string;
+  image: string;
   seasons: IndividualPodcastSeason[];
 };
