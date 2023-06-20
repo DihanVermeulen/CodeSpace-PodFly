@@ -138,7 +138,10 @@ export const fetchFavouritesInfoFromDatabase = async (userID: string) => {
     .select("*")
     .eq("user_id", userID);
 
-  if (!error) return data;
+  if (!error) {
+    console.log("favourites fetched from database: ", data);
+    return data;
+  }
   return error;
 };
 
@@ -152,8 +155,8 @@ export type AddEpisodeToFavourites = {
 export const addEpisodeToFavourites = (
   props: AddEpisodeToFavourites
 ): Promise<void> => {
+  const { userID, episodeNumber, seasonNumber, showID } = props;
   return new Promise(async (resolve, reject) => {
-    const { userID, episodeNumber, seasonNumber, showID } = props;
     try {
       const { error } = await supabase.from("favourites").insert([
         {
@@ -164,7 +167,33 @@ export const addEpisodeToFavourites = (
         },
       ]);
       if (!error) resolve();
-      reject();
+      reject(error);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+type RemoveEpisodeFromFavourites = {
+  episodeID: string;
+};
+
+export const removeEpisodeFromFavourites = (
+  props: RemoveEpisodeFromFavourites
+) => {
+  const { episodeID } = props;
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { error, data } = await supabase
+        .from("favourites")
+        .delete()
+        .eq("id", episodeID);
+
+      if (!error) {
+        resolve(data);
+        console.log("removed show from favourites: ", data);
+      }
+      reject(error);
     } catch (error) {
       reject(error);
     }
@@ -176,4 +205,5 @@ export default {
   fetchFavouritesInfoFromDatabase,
   addEpisodeToFavourites,
   fetchAllIndividualPodcasts,
+  removeEpisodeFromFavourites,
 };
