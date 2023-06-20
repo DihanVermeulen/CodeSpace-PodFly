@@ -45,62 +45,88 @@ export const fetchAllIndividualPodcasts = async (idArray: string[]) => {
 /**
  * Filters the fetched individual podcasts based on the associated episodes and seasons from the favorites table
  * @param allPodcasts array of all individual podcasts
- * @param fetchedRows fetched rows from favorites table
- * @returns filtered array of favorite individual podcasts
+ * @param fetchedRows fetched rows from favouurites table
+ * @returns filtered array of favourite individual podcasts
  */
 export const createFavouritesArray = (
   allPodcasts: IndividualPodcast[],
   fetchedRows: any[]
 ) => {
-  const filteredPodcasts: IndividualPodcast[] = [];
-
+  const favouritesArray: IndividualPodcast[] = [];
   for (const row of fetchedRows) {
-    const { episode, season, show_id } = row;
-
+    const { episode, season, show_id, id, created_at, updated_at } = row;
     // Find the matching podcast based on the show_id
     const podcast = allPodcasts.find((p) => p.id === show_id);
-
     if (podcast) {
-      // Create a new podcast object with the matched season and episodes
-      const newPodcast: IndividualPodcast = {
-        ...podcast,
-        seasons: [],
-      };
-
-      // Find the matched season and episodes
-      const matchedSeason = podcast.seasons.find((s) => s.season === season);
-
-      if (matchedSeason) {
-        const matchedEpisodes = matchedSeason.episodes.filter(
-          (e) => e.episode === episode
+      // Check if the podcast already exists in the favourites array
+      const existingPodcast = favouritesArray.find((p) => p.id === podcast.id);
+      if (existingPodcast) {
+        // Find the matched season in the existing podcast
+        const existingSeason = existingPodcast.seasons.find(
+          (s) => s.season === season
         );
-        if (matchedEpisodes.length > 0) {
-          newPodcast.seasons.push({
-            ...matchedSeason,
-            episodes: matchedEpisodes,
-          });
-        }
-      }
-
-      // Check if the new podcast has any matched seasons and episodes
-      if (newPodcast.seasons.length > 0) {
-        // Check if the show is already added to the favourites array
-        const existingPodcast = filteredPodcasts.find(
-          (p) => p.id === newPodcast.id
-        );
-
-        if (existingPodcast) {
-          // Add the matched seasons to the existing podcast
-          existingPodcast.seasons.push(...newPodcast.seasons);
+        if (existingSeason) {
+          // Check if the episode already exists in the existing season
+          const existingEpisode = existingSeason.episodes.find(
+            (e) => e.episode === episode
+          );
+          if (!existingEpisode) {
+            // Find the matched episode in the original podcast
+            const matchedEpisode = podcast.seasons
+              .find((s) => s.season === season)
+              ?.episodes.find((e) => e.episode === episode);
+            if (matchedEpisode) {
+              // Add the matched episode to the existing season
+              existingSeason.episodes.push({
+                ...matchedEpisode,
+                id,
+                created_at,
+                updated_at,
+              });
+            }
+          }
         } else {
-          // Add the new podcast to the favourites array
-          filteredPodcasts.push(newPodcast);
+          // Create a new season with the matched episode
+          const matchedSeason = podcast.seasons.find(
+            (s) => s.season === season
+          );
+          if (matchedSeason) {
+            const matchedEpisode = matchedSeason.episodes.find(
+              (e) => e.episode === episode
+            );
+            if (matchedEpisode) {
+              existingPodcast.seasons.push({
+                ...matchedSeason,
+                episodes: [{ ...matchedEpisode, id, created_at, updated_at }],
+              });
+            }
+          }
         }
+      } else {
+        // Create a new podcast object with the matched season and episode
+        const newPodcast: IndividualPodcast = {
+          ...podcast,
+          seasons: [],
+        };
+        // Find the matched season
+        const matchedSeason = podcast.seasons.find((s) => s.season === season);
+        if (matchedSeason) {
+          const matchedEpisode = matchedSeason.episodes.find(
+            (e) => e.episode === episode
+          );
+          if (matchedEpisode) {
+            newPodcast.seasons.push({
+              ...matchedSeason,
+              episodes: [{ ...matchedEpisode, id, created_at, updated_at }],
+            });
+          }
+        }
+        // Add the new podcast to the favourites array
+        favouritesArray.push(newPodcast);
       }
     }
   }
-
-  return filteredPodcasts;
+  return favouritesArray;
 };
 /**
  * Fetches favourite shows info from the Supabase database
