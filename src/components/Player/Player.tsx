@@ -28,6 +28,7 @@ import {
 } from "../../model";
 import { DropdownMenuPlayer } from "../DropdownMenuPlayer";
 import { addEpisodeToFavourites } from "../../utils/helpers";
+import { useEffect } from "react";
 
 export const Player = () => {
   const { handleCloseModal, handleMaximiseModal } = usePlayer();
@@ -67,6 +68,15 @@ export const Player = () => {
         throw new Error("Error with adding episode to favourites");
       });
   };
+
+  useEffect(() => {
+    if (playerData && audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      audioRef.current.src = playerData.audioSrc;
+      audioRef.current.play();
+    }
+  }, [playerData]);
 
   return (
     <>
