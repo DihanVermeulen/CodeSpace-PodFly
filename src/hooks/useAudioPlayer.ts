@@ -65,10 +65,7 @@ export const useAudioPlayer = () => {
     };
   }, [isDragging, audioRef]);
 
-  const handleProgressChange = (
-    _event: Event,
-    newValue: number | number[]
-  ) => {
+  const handleProgressChange = (_event: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
       setCurrentTime(newValue);
       if (audioRef.current) audioRef.current.currentTime = newValue;
