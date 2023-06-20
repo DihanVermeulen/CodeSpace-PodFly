@@ -74,7 +74,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <Space height={"4rem"} />
+      <Space height={"5rem"} />
       <Box marginLeft={"0.6rem"}>
         <Text variant="body1" as="p" fontWeight={300}>
           Hi, {session?.user.email ? session.user.email.split("@")[0] : "guest"}
