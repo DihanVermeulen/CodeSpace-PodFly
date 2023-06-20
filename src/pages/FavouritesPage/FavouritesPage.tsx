@@ -164,10 +164,11 @@ export const FavouritesPage = () => {
                                     color="#a1a1a1"
                                   >
                                     added:{" "}
-                                    {format(
-                                      new Date(episode.created_at),
-                                      "dd LLLL yyyy"
-                                    )}
+                                    {episode.created_at &&
+                                      format(
+                                        new Date(episode.created_at),
+                                        "dd LLLL yyyy"
+                                      )}
                                   </Typography>
                                 </Box>
                               }
