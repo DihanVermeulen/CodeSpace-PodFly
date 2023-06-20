@@ -79,11 +79,26 @@ export const Player = () => {
   useEffect(() => {
     if (playerData && audioRef.current) {
       /** Gets the initial time in local storage if it has been listened to */
-      const initialTime = localStorage.getItem(
-        `playing.${playerData.podcast}.${playerData.season}.${playerData.episodeNumber}`
-      );
+      const handleGetInitialTime = () => {
+        const { podcast, episodeNumber, season } = playerData;
+        const playingData = localStorage.getItem("playing") || "{}";
+        const parsedPlayingData = JSON.parse(playingData);
+
+        if (
+          parsedPlayingData[podcast] &&
+          parsedPlayingData[podcast][season] &&
+          parsedPlayingData[podcast][season][episodeNumber]
+        ) {
+          const initialTime =
+            parsedPlayingData[podcast][season][episodeNumber].time;
+          return initialTime;
+        }
+        return null;
+      };
+
       setIsPlaying(false);
       audioRef.current.pause();
+      const initialTime = handleGetInitialTime();
       if (initialTime) {
         audioRef.current.currentTime = JSON.parse(initialTime);
       } else {
@@ -100,12 +115,24 @@ export const Player = () => {
     if (playerData) {
       let timeoutId;
 
+      /** Saves the current time that the audio player is at to local storage */
       const saveCurrentTime = () => {
-        // Save the current time to localStorage
-        localStorage.setItem(
-          `playing.${playerData?.podcast}.${playerData.season}.${playerData.episodeNumber}`,
-          currentTime.toString()
-        );
+        const playingData = localStorage.getItem("playing") || "{}";
+        const parsedPlayingData = JSON.parse(playingData);
+
+        const { podcast, season, episodeNumber } = playerData;
+        const updatedPlayingData = {
+          ...parsedPlayingData,
+          [podcast]: {
+            ...(parsedPlayingData[podcast] || {}),
+            [season]: {
+              ...(parsedPlayingData[podcast]?.[season] || {}),
+              [episodeNumber]: { time: currentTime },
+            },
+          },
+        };
+
+        localStorage.setItem("playing", JSON.stringify(updatedPlayingData));
       };
 
       const debounceSaveCurrentTime = () => {
