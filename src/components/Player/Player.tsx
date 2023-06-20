@@ -66,7 +66,6 @@ export const Player = () => {
       showID: playerData.podcast,
     })
       .then(() => {
-        console.log("Episode added to favourites");
         favouritesActions.getFavourites();
       })
       .catch(() => {
