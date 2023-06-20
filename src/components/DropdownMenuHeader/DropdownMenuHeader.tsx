@@ -36,8 +36,9 @@ export const DropdownMenuHeader = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
+          size="small"
         >
-          <Avatar sx={{ bgcolor: "purple" }}>
+          <Avatar  sx={{ bgcolor: "purple" }}>
             {session.user.email[0].toUpperCase()}
           </Avatar>
         </IconButton>
