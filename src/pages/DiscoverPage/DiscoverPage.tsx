@@ -54,15 +54,13 @@ export const DiscoverPage = () => {
     }
   };
 
-  console.log(searchData);
-
   const handleFilterData = (
     _event: MouseEvent<HTMLElement>,
-    toggleFilter: Filter
+    newFilter: Filter
   ) => {
-    if (toggleFilter !== filter) {
-      setFilter(toggleFilter);
-      setFilteredData(filterData(toggleFilter, podcasts));
+    if (newFilter !== filter && newFilter !== null) {
+      setFilter(newFilter);
+      setFilteredData(filterData(newFilter, podcasts));
       setSearchData([]);
     }
   };
