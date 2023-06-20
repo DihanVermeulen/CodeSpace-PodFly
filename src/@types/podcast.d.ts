@@ -23,6 +23,9 @@ type IndividualPodcastEpisode = {
   description: string;
   episode: number;
   file: string;
+  id?: string;
+  created_at?: string;
+  updated_at?: string;
 };
 
 type IndividualPodcastSeason = {
