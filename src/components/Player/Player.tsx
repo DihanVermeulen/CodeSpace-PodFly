@@ -41,6 +41,7 @@ export const Player = () => {
     handleDragStart,
     handleDragEnd,
     handlePlayPause,
+    setIsPlaying,
   } = useAudioPlayer();
   const { session } = getAuthState();
 
@@ -50,6 +51,10 @@ export const Player = () => {
   const playerData = modalState.data;
   const favouritesActions = createFavouritesActions();
 
+  /**
+   * Handles adding episode to favourites table
+   * @returns
+   */
   const handleAddEpisodetoFavourites = () => {
     if (!session) throw new Error("No user is logged in");
     if (!playerData) return;
@@ -69,11 +74,24 @@ export const Player = () => {
       });
   };
 
+  /* Checks if the episode has played before and sets the audio's
+   * current time to that time, or else it is set to 0.
+   */
   useEffect(() => {
     if (playerData && audioRef.current) {
+      /** Gets the initial time in local storage if it has been listened to */
+      const initialTime = localStorage.getItem(
+        `playing.${playerData.podcast}.${playerData.season}.${playerData.episodeNumber}`
+      );
+      setIsPlaying(false);
       audioRef.current.pause();
-      audioRef.current.currentTime = 0;
+      if (initialTime) {
+        audioRef.current.currentTime = JSON.parse(initialTime);
+      } else {
+        audioRef.current.currentTime = 0;
+      }
       audioRef.current.src = playerData.audioSrc;
+      setIsPlaying(true);
       audioRef.current.play();
     }
   }, [playerData]);
