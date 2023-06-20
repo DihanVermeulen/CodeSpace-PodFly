@@ -6,7 +6,7 @@ import {
   IndividualPodcastEpisode,
   IndividualPodcastSeason,
 } from "../@types/podcast";
-import { fetchIndividualPodcast } from "../utils/helpers";
+import { fetchIndividualPodcast, findEpisode } from "../utils/helpers";
 
 export const usePlayer = () => {
   const modalState = getModalState();
@@ -63,25 +63,6 @@ export const usePlayer = () => {
       document.body.style.overflow = "auto";
     }
   }, [location]);
-
-  const findEpisode = (
-    data: IndividualPodcast,
-    seasonNumber: number,
-    episodeNumber: number
-  ) => {
-    const season: IndividualPodcastSeason | undefined = data.seasons.find(
-      (item) => item.season === seasonNumber
-    );
-
-    const episode: IndividualPodcastEpisode | undefined = season?.episodes.find(
-      (item) => item.episode === episodeNumber
-    );
-    if (typeof episode !== "undefined") {
-      return {
-        episode,
-      };
-    }
-  };
 
   const handleCloseModal = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
