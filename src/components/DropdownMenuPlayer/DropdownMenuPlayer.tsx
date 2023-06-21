@@ -7,6 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import { copyToClipboard } from "../../utils/helpers";
 
 export type DropdownMenuPlayer = {
   addToFavourites: () => void;
@@ -50,7 +51,7 @@ export const DropdownMenuPlayer = (props: DropdownMenuPlayer) => {
           </ListItemIcon>
           <ListItemText>Add to favourites</ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => copyToClipboard(window.location.href)}>
           <ListItemIcon>
             <Share fontSize="small" />
           </ListItemIcon>
