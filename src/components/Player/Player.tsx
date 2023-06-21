@@ -98,6 +98,7 @@ export const Player = () => {
 
       setIsPlaying(false);
       audioRef.current.pause();
+      audioRef.current.src = playerData.audioSrc;
       const initialTime = handleGetInitialTime();
       if (initialTime) {
         audioRef.current.currentTime = JSON.parse(initialTime);
@@ -156,7 +157,7 @@ export const Player = () => {
 
   return (
     <>
-      {playerData && <audio ref={audioRef} src={playerData.audioSrc} />}
+      <audio ref={audioRef} />
       <ModalContainer isMaximised={isMaximised} isOpen={isOpen}>
         {modalState.isMaximised && (
           <>
@@ -230,8 +231,6 @@ export const Player = () => {
               height: "1rem",
               display: "flex",
               alignItems: "center",
-              paddingTop: "1rem",
-              // backgroundColor: "blue",
             }}
           >
             <StyledSlider
@@ -239,12 +238,12 @@ export const Player = () => {
               value={currentTime}
               min={0}
               max={duration}
-              step={0.1}
-              onChange={handleProgressChange as any}
+              step={0.2}
+              onChange={handleProgressChange}
               onMouseDown={handleDragStart}
               onMouseUp={handleDragEnd}
-              onTouchStart={handleDragStart}
-              onTouchEnd={handleDragEnd}
+              // onTouchStart={handleDragStart}
+              // onTouchEnd={handleDragEnd}
               sx={{
                 color: "#D7A6B3",
                 width: "100%",
