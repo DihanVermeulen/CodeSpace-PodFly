@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
-const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;
   text-decoration: none;
