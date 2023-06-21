@@ -14,12 +14,13 @@ import {
   ListItemText,
   IconButton,
 } from "@mui/material";
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useEffect } from "react";
 import { BookmarkRemove, ExpandMore, PlayArrow } from "@mui/icons-material";
 import { createFavouritesActions, getFavouritesState } from "../../model";
 import { removeEpisodeFromFavourites } from "../../utils/helpers";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { IndividualPodcast } from "../../@types/podcast";
 
 export const FavouritesPage = () => {
   const { getSession } = useAuth();
@@ -28,6 +29,22 @@ export const FavouritesPage = () => {
   const [filter, setFilter] = useState<Filter>("ALL");
   const favouritesActions = createFavouritesActions();
   const navigate = useNavigate();
+  const [filteredData, setFilteredData] = useState<IndividualPodcast[] | null>(
+    null
+  );
+  const [phase, setPhase] = useState("LOADING");
+
+  useEffect(() => {
+    if (favouritesList.length > 0) {
+      setPhase("LOADED");
+      setFilteredData((prevData) => {
+        if (prevData === null || prevData === favouritesList) {
+          return filterData(filter, favouritesList);
+        }
+        return prevData;
+      });
+    }
+  }, [filter, favouritesList]);
 
   const handleFilterData = (
     _event: MouseEvent<HTMLElement>,
@@ -35,8 +52,32 @@ export const FavouritesPage = () => {
   ) => {
     if (newFilter !== filter && newFilter !== null) {
       setFilter(newFilter);
-      // setFilteredData(filterData(newFilter, podcasts));
-      // setSearchData([]);
+      setFilteredData(filterData(newFilter, favouritesList));
+    }
+  };
+
+  const filterData = (filter: Filter, data: IndividualPodcast[]) => {
+    switch (filter) {
+      case "A-Z": {
+        return [...data].sort((a, b) => a.title.localeCompare(b.title));
+      }
+      case "Z-A": {
+        return [...data].sort((a, b) => b.title.localeCompare(a.title));
+      }
+      case "MOST_RECENT": {
+        return [...data].sort(
+          (a, b) => b.updated.getTime() - a.updated.getTime()
+        );
+      }
+      case "LEAST_RECENT": {
+        return [...data].sort(
+          (a, b) => a.updated.getTime() - b.updated.getTime()
+        );
+      }
+      case "ALL":
+        return [...data];
+      default:
+        return [...data];
     }
   };
 
@@ -95,8 +136,9 @@ export const FavouritesPage = () => {
         </ToggleButtonGroup>
       </Box>
       {session
-        ? favouritesList &&
-          favouritesList.map((item) => (
+        ? phase === "LOADED" &&
+          filteredData &&
+          filteredData.map((item) => (
             <Accordion key={item.id}>
               <AccordionSummary
                 expandIcon={<ExpandMore />}
@@ -123,11 +165,13 @@ export const FavouritesPage = () => {
                             secondaryAction={
                               <>
                                 <IconButton
-                                  onClick={() =>
-                                    handleRemoveEpisodeFromFavourites(
-                                      episode.id
-                                    )
-                                  }
+                                  onClick={() => {
+                                    if (episode.id) {
+                                      handleRemoveEpisodeFromFavourites(
+                                        episode.id
+                                      );
+                                    }
+                                  }}
                                 >
                                   <BookmarkRemove />
                                 </IconButton>
