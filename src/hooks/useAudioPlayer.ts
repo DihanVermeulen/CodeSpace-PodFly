@@ -15,13 +15,7 @@ export const useAudioPlayer = () => {
       if (isPlaying) {
         // Cancel the event
         event.preventDefault();
-        // Chrome requires returnValue to be set
-        event.returnValue = "";
-
-        // Display a confirmation dialog
-        const confirmationMessage =
-          "Are you sure you want to leave? Your audio will stop playing.";
-        return confirmationMessage;
+        return "Are you sure you want to leave? Your audio will stop playing.";
       }
     };
     // Check if audio is playing
