@@ -147,7 +147,7 @@ export const createStore = (api: Api): StoreApi<Store> => {
           const filteredFavourites = createFavouritesArray(
             allIndividualPodcasts,
             favourites as any
-          );
+          ).map((item) => ({ ...item, updated: new Date(item.updated) }));
           set((state) => ({
             favourites: {
               ...state.favourites,
