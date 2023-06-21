@@ -7,7 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { shareContent } from "../../../utils/helpers";
+import { shareContent } from "../../utils/helpers";
 
 export const DropdownMenuPlayer = (props: any) => {
   const { addToFavourites } = props;
