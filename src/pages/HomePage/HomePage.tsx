@@ -33,6 +33,10 @@ export const HomePage = () => {
     }
   }, [podcasts]);
 
+  const handleClearHistory = () => {
+    localStorage.removeItem("playing");
+  };
+
   useEffect(() => {
     const createPreviouslyListenedToEpisodes = async () => {
       if (previouslyPlayedEpisodesFromLocalStorage) {
@@ -128,7 +132,16 @@ export const HomePage = () => {
       {previouslyListenedToEpisodes &&
         previouslyListenedToEpisodes.length > 0 && (
           <Box padding={2}>
-            <Typography>Continue listening</Typography>
+            <Box
+              display={"flex"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <Typography>Continue listening</Typography>
+              <p style={{ cursor: "pointer" }} onClick={handleClearHistory}>
+                clear history
+              </p>
+            </Box>
             <PreviouslyListenedList data={previouslyListenedToEpisodes} />
           </Box>
         )}
