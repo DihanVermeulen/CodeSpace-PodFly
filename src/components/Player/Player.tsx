@@ -51,6 +51,16 @@ export const Player = () => {
   const playerData = modalState.data;
   const favouritesActions = createFavouritesActions();
 
+  useEffect(() => {
+    if (!isOpen) {
+      setIsPlaying(false);
+      if (audioRef.current !== null) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    }
+  }, [isOpen]);
+
   /**
    * Handles adding episode to favourites table
    * @returns
@@ -157,7 +167,7 @@ export const Player = () => {
 
   return (
     <>
-      <audio ref={audioRef} />
+      {isOpen && <audio ref={audioRef} />}
       <ModalContainer isMaximised={isMaximised} isOpen={isOpen}>
         {modalState.isMaximised && (
           <>
