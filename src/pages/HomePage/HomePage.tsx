@@ -56,6 +56,10 @@ export const HomePage = () => {
                   time: previouslyPlayedEpisodesFromLocalStorage[podcast][
                     season
                   ][episode].time,
+                  duration:
+                    previouslyPlayedEpisodesFromLocalStorage[podcast][season][
+                      episode
+                    ].duration,
                 };
               });
             });
