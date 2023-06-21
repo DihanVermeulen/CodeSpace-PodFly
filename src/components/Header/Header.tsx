@@ -1,9 +1,15 @@
-import { IconButton, CssBaseline, Box } from "@mui/material";
-import { Menu } from "@mui/icons-material";
-import StyledComponents from "./Header.styled";
+import { CssBaseline, Box } from "@mui/material";
+import {
+  HeaderContainer,
+  LinkBlock,
+  Logo,
+  StyledLink,
+  LogoContainer,
+} from "./Header.styled";
 import { useLocation } from "react-router-dom";
 import { SearchModal } from "../Search";
-import { DropdownMenuHeader } from "../DropdownMenuHeader";
+import { DropdownMenuHeader } from "../Dropdowns";
+import PodFlyLogo from "../../assets/podfly-logo32x32.png";
 
 export const Header = () => {
   const location = useLocation();
@@ -11,51 +17,50 @@ export const Header = () => {
   return (
     <>
       <CssBaseline />
-      <StyledComponents.Header>
+      <HeaderContainer>
+        <LogoContainer>
+          <Logo src={PodFlyLogo} alt="logo" />
+          PodFly
+        </LogoContainer>
         <div>
-          <IconButton color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <Menu />
-          </IconButton>
-        </div>
-        <div>
-          <StyledComponents.LinkBlock>
+          <LinkBlock>
             <li>
-              <StyledComponents.StyledLink
+              <StyledLink
                 to={"/"}
                 style={{
                   color: location.pathname === "/" ? "#AAF1CF" : "",
                 }}
               >
                 home
-              </StyledComponents.StyledLink>
+              </StyledLink>
             </li>
             <li>
-              <StyledComponents.StyledLink
+              <StyledLink
                 to={"/discover"}
                 style={{
                   color: location.pathname === "/discover" ? "#AAF1CF" : "",
                 }}
               >
                 discover
-              </StyledComponents.StyledLink>
+              </StyledLink>
             </li>
             <li>
-              <StyledComponents.StyledLink
+              <StyledLink
                 to={"/favourites"}
                 style={{
                   color: location.pathname === "/favourites" ? "#AAF1CF" : "",
                 }}
               >
                 favourites
-              </StyledComponents.StyledLink>
+              </StyledLink>
             </li>
-          </StyledComponents.LinkBlock>
+          </LinkBlock>
         </div>
         <Box display={"flex"}>
           <SearchModal />
           <DropdownMenuHeader />
         </Box>
-      </StyledComponents.Header>
+      </HeaderContainer>
     </>
   );
 };

@@ -6,9 +6,9 @@ import { PodcastPreview } from "../../@types/podcast";
 import { Space } from "../../styles/utils.styles";
 import { store } from "../../model";
 import { useStore } from "zustand";
-import { ViewList } from "../../components/ViewList";
+import { ViewList } from "../../components/Lists";
 import { useAuth } from "../../hooks";
-import { PreviouslyListenedList } from "../../components/PreviouslyListenedList";
+import { PreviouslyListenedList } from "../../components/Lists/PreviouslyListenedList";
 import { fetchIndividualPodcast } from "../../utils/helpers";
 
 const Text = styled(Typography)<{ as: string }>`
@@ -147,7 +147,9 @@ export const HomePage = () => {
         )}
       <Space height={"1rem"} />
       <Box padding={2}>
-        <ViewList data={podcasts} />
+        <Text as="h2">You might also like</Text>
+        <Space height={"1rem"} />
+        <ViewList data={podcasts.slice(3, 9)} />
       </Box>
     </>
   );

@@ -1,4 +1,4 @@
-import { DiscoverList } from "../../components/DiscoverList";
+import { DiscoverList } from "../../components/Lists";
 import { Space } from "../../styles/utils.styles";
 import { useStore } from "zustand";
 import { store } from "../../model";
