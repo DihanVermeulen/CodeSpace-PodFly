@@ -58,6 +58,9 @@ PodFly harnesses the power of the following technologies and tools:
 - storybook (only for testing)
 - Zustand
 
+## Hosting
+This project is hosted on https://podfly-demo.netlify.app/
+
 ### Check out my GitHub Profile
 
 Feel free to check out [my GitHub profile](https://github.com/DihanVermeulen) to explore more of my projects.
