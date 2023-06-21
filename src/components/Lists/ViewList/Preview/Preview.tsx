@@ -1,6 +1,6 @@
 import { Box, Card } from "@mui/material";
-import { PodcastPreview } from "../../../@types/podcast";
-import GENRES from "../../../constants/genres";
+import { PodcastPreview } from "../../../../@types/podcast";
+import GENRES from "../../../../constants/genres";
 import { PreviewImage, PreviewDescription } from "./Preview.styled";
 
 export const Preview = (props: PodcastPreview) => {
