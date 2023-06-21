@@ -9,7 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import { PlayCircleOutline } from "@mui/icons-material";
-import { formatTime } from "../../utils/helpers";
+import { formatTime } from "../../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 
 export type PreviouslyListenedList = {
