@@ -86,7 +86,10 @@ export const FavouritesPage = () => {
     if (userID)
       removeEpisodeFromFavourites({
         episodeID,
-      }).then(() => favouritesActions.getFavourites());
+      }).then(async () => {
+        favouritesActions.getFavourites();
+        location.reload();
+      });
   };
 
   const handleNavigatetoPlayer = (
