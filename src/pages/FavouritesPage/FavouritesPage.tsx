@@ -158,7 +158,7 @@ export const FavouritesPage = () => {
                       <Typography>Season: {season.season}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                      <List dense={true}>
+                      <List>
                         {season.episodes.map((episode) => (
                           <ListItem
                             key={episode.id}
@@ -216,6 +216,7 @@ export const FavouritesPage = () => {
                                   </Typography>
                                 </Box>
                               }
+                              disableTypography
                             />
                           </ListItem>
                         ))}
