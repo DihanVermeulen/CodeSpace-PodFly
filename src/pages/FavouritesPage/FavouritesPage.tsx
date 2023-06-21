@@ -6,6 +6,7 @@ import { useState, MouseEvent, useEffect } from "react";
 import { getFavouritesState } from "../../model";
 import { IndividualPodcast } from "../../@types/podcast";
 import { FavouritesList } from "../../components/Lists/FavouritesList";
+import { Link } from "react-router-dom";
 
 export const FavouritesPage = () => {
   const { getSession } = useAuth();
@@ -100,10 +101,30 @@ export const FavouritesPage = () => {
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>
-      {session
-        ? phase === "LOADED" &&
-          filteredData && <FavouritesList data={filteredData} />
-        : "please sign in"}
+      {session ? (
+        phase === "LOADED" && filteredData ? (
+          <FavouritesList data={filteredData} />
+        ) : (
+          <Box
+            sx={{
+              textAlign: "center",
+            }}
+          >
+            <p>You have not added any podcast</p>
+          </Box>
+        )
+      ) : (
+        <Box
+          sx={{
+            textAlign: "center",
+          }}
+        >
+          <p>
+            Please <Link to={"/signin"}>sign in</Link> or{" "}
+            <Link to={"/signup"}>create an account</Link> to view your added favourites
+          </p>
+        </Box>
+      )}
     </>
   );
 };
