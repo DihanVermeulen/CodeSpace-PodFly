@@ -26,7 +26,7 @@ import {
   getAuthState,
   getModalState,
 } from "../../model";
-import { DropdownMenuPlayer } from "../DropdownMenuPlayer";
+import { DropdownMenuPlayer } from "../Dropdowns";
 import { addEpisodeToFavourites } from "../../utils/helpers";
 import { useEffect } from "react";
 

@@ -3,7 +3,7 @@ import { Menu } from "@mui/icons-material";
 import StyledComponents from "./Header.styled";
 import { useLocation } from "react-router-dom";
 import { SearchModal } from "../Search";
-import { DropdownMenuHeader } from "../DropDowns/DropdownMenuHeader/DropdownMenuHeader";
+import { DropdownMenuHeader } from "../Dropdowns";
 
 export const Header = () => {
   const location = useLocation();
