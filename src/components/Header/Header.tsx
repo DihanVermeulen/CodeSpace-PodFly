@@ -8,7 +8,7 @@ import {
 } from "./Header.styled";
 import { useLocation } from "react-router-dom";
 import { SearchModal } from "../Search";
-import { DropdownMenuHeader } from "../DropDowns/DropdownMenuHeader";
+import { DropdownMenuHeader } from "../DropDowns";
 import PodFlyLogo from "../../assets/podfly-logo32x32.png";
 
 export const Header = () => {
