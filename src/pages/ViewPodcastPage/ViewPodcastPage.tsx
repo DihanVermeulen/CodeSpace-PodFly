@@ -19,7 +19,7 @@ import {
 import { useStore } from "zustand";
 import { store } from "../../model";
 import StyledComponents from "./ViewPodcastPage.styled";
-import { ViewList } from "../../components/ViewList";
+import { ViewList } from "../../components/Lists";
 const { ReadMoreButton, CenteredGrid, StyledImage, Title, Header } =
   StyledComponents;
 
