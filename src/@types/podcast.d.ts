@@ -32,6 +32,7 @@ type IndividualPodcastSeason = {
   season: number;
   title: string;
   image: string;
+  genres: string[];
   episodes: IndividualPodcastEpisode[];
 };
 
