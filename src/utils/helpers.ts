@@ -234,6 +234,21 @@ export const findEpisode = (
   }
 };
 
+/**
+ * Copies item to clipboard
+ * @param data eny piece of data to copy to clipboard
+ */
+export const copyToClipboard = (data: any) => {
+  navigator.clipboard
+    .writeText(data)
+    .then(() => {
+      console.log("Copied to clipboard:", data);
+    })
+    .catch((error) => {
+      console.error("Failed to copy to clipboard:", error);
+    });
+};
+
 export default {
   fetchIndividualPodcast,
   fetchFavouritesInfoFromDatabase,
@@ -241,4 +256,5 @@ export default {
   fetchAllIndividualPodcasts,
   removeEpisodeFromFavourites,
   formatTime,
+  copyToClipboard,
 };
