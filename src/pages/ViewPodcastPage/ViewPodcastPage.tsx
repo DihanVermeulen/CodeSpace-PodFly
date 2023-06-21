@@ -168,7 +168,8 @@ export const ViewPodcastPage = () => {
                   value={selectedSeason.season}
                   onChange={handleSetSelectedSeason}
                   defaultValue={1}
-                  sx={{ border: "none", outline: "none" }}
+                  size="small"
+                  sx={{ fontSize: "12px" }}
                 >
                   {podcasts.seasons.map((item) => (
                     <MenuItem key={item.season} value={item.season}>
@@ -178,6 +179,14 @@ export const ViewPodcastPage = () => {
                 </Select>
               )}
             </FormControl>
+          </Box>
+          <Box
+            color={"#ffffff"}
+            padding={1}
+            marginTop={1}
+            sx={{ backgroundColor: "#606060" }}
+          >
+            All episodes ({selectedSeason?.episodes.length})
           </Box>
         </Box>
         {podcasts && selectedSeason && (
