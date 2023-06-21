@@ -1,15 +1,13 @@
-import { useState } from "react";
 import { PodcastPreview } from "../../@types/podcast";
 import { Grid } from "@mui/material";
 import { Preview } from "./Preview";
-import StyledComponents from "./DiscoverList.styled";
+import { StyledLink } from "./DiscoverList.styled";
 
 export type DiscoverList = {
   data: PodcastPreview[];
 };
 
 export const DiscoverList = (props: DiscoverList) => {
-  const { StyledLink } = StyledComponents;
   const { data } = props;
 
   return (
@@ -25,12 +23,7 @@ export const DiscoverList = (props: DiscoverList) => {
               display={"flex"}
             >
               <StyledLink to={`/view/${item.id}`}>
-                <Preview
-                  title={item.title}
-                  image={item.image}
-                  seasons={item.seasons}
-                  updated={item.updated}
-                />
+                <Preview {...item} />
               </StyledLink>
             </Grid>
           ))}
