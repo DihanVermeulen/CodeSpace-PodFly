@@ -9,7 +9,7 @@ import {
 import { Login, Logout, Person } from "@mui/icons-material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../hooks";
+import { useAuth } from "../../../../hooks";
 
 export const DropdownMenuHeader = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
