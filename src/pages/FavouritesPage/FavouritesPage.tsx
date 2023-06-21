@@ -15,9 +15,14 @@ import {
   IconButton,
 } from "@mui/material";
 import { useState, MouseEvent, useEffect } from "react";
-import { BookmarkRemove, ExpandMore, PlayArrow } from "@mui/icons-material";
+import {
+  BookmarkRemove,
+  ExpandMore,
+  PlayArrow,
+  Share,
+} from "@mui/icons-material";
 import { createFavouritesActions, getFavouritesState } from "../../model";
-import { removeEpisodeFromFavourites } from "../../utils/helpers";
+import { removeEpisodeFromFavourites, shareContent } from "../../utils/helpers";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { IndividualPodcast } from "../../@types/podcast";
@@ -167,6 +172,17 @@ export const FavouritesPage = () => {
                             key={episode.id}
                             secondaryAction={
                               <>
+                                <IconButton
+                                  onClick={() =>
+                                    shareContent(
+                                      "PodFly",
+                                      "Go check out this awesome podcast on PodFly!",
+                                      `https://podfly-demo.netlify.app/listen?podcast=${item.id}&season=${season.season}&episode=${episode.episode}`
+                                    )
+                                  }
+                                >
+                                  <Share />
+                                </IconButton>
                                 <IconButton
                                   onClick={() => {
                                     if (episode.id) {
