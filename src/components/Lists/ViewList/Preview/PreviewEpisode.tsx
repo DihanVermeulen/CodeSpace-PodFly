@@ -1,6 +1,6 @@
-import { IndividualPodcastEpisode } from "../../../@types/podcast";
+import { IndividualPodcastEpisode } from "../../../../@types/podcast";
 import { EpisodeTitle, EpisodeTile, EpisodeLabel } from "./Preview.styled";
-import UtilsStyles from "../../../styles/utils.styles";
+import UtilsStyles from "../../../../styles/utils.styles";
 const { Space } = UtilsStyles;
 
 export const PreviewEpisode = (props: IndividualPodcastEpisode) => {
