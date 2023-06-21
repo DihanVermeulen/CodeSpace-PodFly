@@ -147,7 +147,9 @@ export const HomePage = () => {
         )}
       <Space height={"1rem"} />
       <Box padding={2}>
-        <ViewList data={podcasts} />
+        <Text as="h2">You might also like</Text>
+        <Space height={"1rem"} />
+        <ViewList data={podcasts.slice(3, 9)} />
       </Box>
     </>
   );
