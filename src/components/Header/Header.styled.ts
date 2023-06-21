@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 
-const Header = styled.header`
+export const HeaderContainer = styled.header`
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -13,12 +13,12 @@ const Header = styled.header`
   background-color: rgba(255, 255, 255);
 `;
 
-const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)`
   text-decoration: none;
   color: #a1a1a1;
 `;
 
-const LinkBlock = styled.ul`
+export const LinkBlock = styled.ul`
   display: flex;
   list-style: none;
   margin: 0;
@@ -33,4 +33,13 @@ const LinkBlock = styled.ul`
   }
 `;
 
-export default { Header, StyledLink, LinkBlock };
+export const Logo = styled.img`
+  width: 2rem;
+`;
+
+export const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export default { HeaderContainer, StyledLink, LinkBlock, Logo, LogoContainer };
