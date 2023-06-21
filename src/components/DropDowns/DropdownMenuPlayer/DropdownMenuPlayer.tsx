@@ -9,11 +9,7 @@ import {
 } from "@mui/material";
 import { shareContent } from "../../../utils/helpers";
 
-export type DropdownMenuPlayer = {
-  addToFavourites: () => void;
-};
-
-export const DropdownMenuPlayer = (props: DropdownMenuPlayer) => {
+export const DropdownMenuPlayer = (props: any) => {
   const { addToFavourites } = props;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
