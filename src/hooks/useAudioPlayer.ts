@@ -32,7 +32,7 @@ export const useAudioPlayer = () => {
     );
     return () =>
       window.removeEventListener(
-        "beforeUnload",
+        "beforeunload",
         giveConfirmationMessageBeforeClosing
       );
   }, [isPlaying]);
