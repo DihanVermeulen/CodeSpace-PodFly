@@ -249,6 +249,24 @@ export const copyToClipboard = (data: any) => {
     });
 };
 
+export const shareContent = async (
+  title: string,
+  text: string,
+  URL: string
+) => {
+  if (navigator.share) {
+    const shareData = {
+      title: title,
+      text: text,
+      url: URL,
+    };
+
+    await navigator.share(shareData);
+  } else {
+    copyToClipboard(URL);
+  }
+};
+
 export default {
   fetchIndividualPodcast,
   fetchFavouritesInfoFromDatabase,
