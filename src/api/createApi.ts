@@ -28,7 +28,6 @@ const getPodcastList: Api["getPodcastList"] = () => {
       }))
     )
     .catch((err) => {
-      console.error(err);
       return err;
     });
 
