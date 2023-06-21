@@ -1,15 +1,13 @@
-import { PodcastPreview } from "../../../@types/podcast";
+import { PodcastPreview } from "../../../../@types/podcast";
 import { Label, Card, Image } from "./Preview.styled";
 import { format } from "date-fns";
-import GENRES from "../../../constants/genres";
+import GENRES from "../../../../constants/genres";
 
 export const Preview = (props: PodcastPreview) => {
   const { image, title, seasons, updated, genres } = props;
-  const newGenres = [];
-  for (const genre of genres) {
-    // @ts-ignore
-    newGenres.push(GENRES[genre]);
-  }
+
+  // @ts-ignore
+  const newGenres = genres.map((genre) => GENRES[genre]).join(", ");
   return (
     <Card>
       <Image src={image} loading="lazy" />
@@ -37,7 +35,7 @@ export const Preview = (props: PodcastPreview) => {
             color={"#a1a1a1"}
             style={{ margin: 0, fontWeight: 300 }}
           >
-            genres: {newGenres.join(", ")}
+            genres: {newGenres}
           </Label>
         </div>
       </dl>

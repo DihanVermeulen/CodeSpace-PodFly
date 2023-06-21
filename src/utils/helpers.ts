@@ -194,7 +194,6 @@ export const removeEpisodeFromFavourites = (
 
       if (!error) {
         resolve(data);
-        console.log("removed show from favourites: ", data);
       }
       reject(error);
     } catch (error) {

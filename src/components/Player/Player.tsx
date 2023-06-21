@@ -26,7 +26,7 @@ import {
   getAuthState,
   getModalState,
 } from "../../model";
-import { DropdownMenuPlayer } from "../DropdownMenuPlayer";
+import { DropdownMenuPlayer } from "../Dropdowns";
 import { addEpisodeToFavourites } from "../../utils/helpers";
 import { useEffect } from "react";
 
@@ -50,6 +50,16 @@ export const Player = () => {
   const isMaximised = modalState.isMaximised;
   const playerData = modalState.data;
   const favouritesActions = createFavouritesActions();
+
+  useEffect(() => {
+    if (!isOpen) {
+      setIsPlaying(false);
+      if (audioRef.current !== null) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    }
+  }, [isOpen]);
 
   /**
    * Handles adding episode to favourites table
@@ -98,6 +108,7 @@ export const Player = () => {
 
       setIsPlaying(false);
       audioRef.current.pause();
+      audioRef.current.src = playerData.audioSrc;
       const initialTime = handleGetInitialTime();
       if (initialTime) {
         audioRef.current.currentTime = JSON.parse(initialTime);
@@ -110,7 +121,7 @@ export const Player = () => {
     }
   }, [playerData]);
 
-  // Sets the current time the audio is playing at inside of the local storage
+  // Sets the current time the audio is playing at inside the local storage
   useEffect(() => {
     if (playerData) {
       let timeoutId: NodeJS.Timeout;
@@ -127,7 +138,12 @@ export const Player = () => {
             ...(parsedPlayingData[podcast] || {}),
             [season]: {
               ...(parsedPlayingData[podcast]?.[season] || {}),
-              [episodeNumber]: { time: currentTime, duration: audioRef.current?.duration },
+              [episodeNumber]: {
+                time: currentTime,
+                duration:
+                  parsedPlayingData[podcast]?.[season]?.[episodeNumber]
+                    ?.duration || audioRef.current?.duration,
+              },
             },
           },
         };
@@ -135,22 +151,23 @@ export const Player = () => {
         localStorage.setItem("playing", JSON.stringify(updatedPlayingData));
       };
 
-      const debounceSaveCurrentTime = () => {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(saveCurrentTime, 5000);
-      };
+      // const debounceSaveCurrentTime = () => {
+      //   clearTimeout(timeoutId);
+      //   timeoutId = setTimeout(saveCurrentTime, 5000);
+      // };
 
-      debounceSaveCurrentTime();
+      // debounceSaveCurrentTime();
+      saveCurrentTime();
       return () => {
-        clearTimeout(timeoutId);
         saveCurrentTime();
+        clearTimeout(timeoutId);
       };
     }
   }, [currentTime]);
 
   return (
     <>
-      {playerData && <audio ref={audioRef} src={playerData.audioSrc} />}
+      {isOpen && <audio ref={audioRef} />}
       <ModalContainer isMaximised={isMaximised} isOpen={isOpen}>
         {modalState.isMaximised && (
           <>
@@ -224,8 +241,6 @@ export const Player = () => {
               height: "1rem",
               display: "flex",
               alignItems: "center",
-              paddingTop: "1rem",
-              // backgroundColor: "blue",
             }}
           >
             <StyledSlider
@@ -233,12 +248,12 @@ export const Player = () => {
               value={currentTime}
               min={0}
               max={duration}
-              step={0.1}
-              onChange={handleProgressChange as any}
+              step={0.2}
+              onChange={handleProgressChange}
               onMouseDown={handleDragStart}
               onMouseUp={handleDragEnd}
-              onTouchStart={handleDragStart}
-              onTouchEnd={handleDragEnd}
+              // onTouchStart={handleDragStart}
+              // onTouchEnd={handleDragEnd}
               sx={{
                 color: "#D7A6B3",
                 width: "100%",

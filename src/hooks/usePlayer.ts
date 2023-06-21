@@ -1,9 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { createModalActions, getModalState } from "../model";
 import { useEffect } from "react";
-import {
-  IndividualPodcast,
-} from "../@types/podcast";
+import { IndividualPodcast } from "../@types/podcast";
 import { fetchIndividualPodcast, findEpisode } from "../utils/helpers";
 
 export const usePlayer = () => {

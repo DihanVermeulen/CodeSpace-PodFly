@@ -2,6 +2,7 @@ import { CarouselCard } from "./CarouselCard";
 import StyledComponents from "./Carousel.styled";
 import { useState, useEffect } from "react";
 import { PodcastPreview } from "../../@types/podcast";
+import { CleanLink } from "../../styles";
 
 export type Carousel = {
   data: PodcastPreview[];
@@ -22,11 +23,9 @@ export const Carousel = (props: Carousel) => {
       <StyledComponents.Carousel>
         {phase === "LISTING" &&
           data.map((item) => (
-            <CarouselCard
-              key={item.id}
-              title={item.title}
-              image={item.image}
-            />
+            <CleanLink key={item.id} to={`/view/${item.id}`}>
+              <CarouselCard {...item} />
+            </CleanLink>
           ))}
       </StyledComponents.Carousel>
     </>

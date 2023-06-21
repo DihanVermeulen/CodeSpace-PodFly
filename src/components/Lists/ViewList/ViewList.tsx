@@ -1,8 +1,11 @@
 import { Box, Divider, List, ListItem } from "@mui/material";
 import { Preview, PreviewEpisode } from "./Preview";
-import { PodcastPreview, IndividualPodcastEpisode } from "../../@types/podcast";
+import {
+  PodcastPreview,
+  IndividualPodcastEpisode,
+} from "../../../@types/podcast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getModalState, createModalActions } from "../../model";
+import { getModalState, createModalActions } from "../../../model";
 import { Fragment } from "react";
 
 type ViewList<T> = {
@@ -78,7 +81,7 @@ export const ViewList = (props: ViewList<EpisodeData | PodcastPreview[]>) => {
     return (
       <Box display={"flex"} flexWrap={"wrap"} gap={2}>
         {(data as PodcastPreview[]).map((item) => (
-          <Preview key={item.id} />
+          <Preview key={item.id} {...item} />
         ))}
       </Box>
     );

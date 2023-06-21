@@ -1,4 +1,4 @@
-import { PodcastPreview } from "../../@types/podcast";
+import { PodcastPreview } from "../../../@types/podcast";
 import { Grid } from "@mui/material";
 import { Preview } from "./Preview";
 import { StyledLink } from "./DiscoverList.styled";
