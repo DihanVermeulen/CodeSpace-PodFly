@@ -9,7 +9,7 @@ import {
 import { useLocation } from "react-router-dom";
 import { SearchModal } from "../Search";
 import PodFlyLogo from "../../assets/podfly-logo32x32.png";
-import DropdownMenuHeader from "../Dropdowns/DropdownMenuHeader/DropdownMenuHeader";
+import DropdownMenuHeader from "../DropdownMenuHeader/DropdownMenuHeader";
 
 export const Header = () => {
   const location = useLocation();

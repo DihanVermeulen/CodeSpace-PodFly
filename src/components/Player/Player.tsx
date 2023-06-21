@@ -28,7 +28,7 @@ import {
 } from "../../model";
 import { addEpisodeToFavourites } from "../../utils/helpers";
 import { useEffect } from "react";
-import DropdownMenuPlayer from "../Dropdowns/DropdownMenuPlayer/DropdownMenuPlayer";
+import DropdownMenuPlayer from "../DropdownMenuPlayer/DropdownMenuPlayer";
 
 export const Player = () => {
   const { handleCloseModal, handleMaximiseModal } = usePlayer();
