@@ -110,7 +110,7 @@ export const Player = () => {
     }
   }, [playerData]);
 
-  // Sets the current time the audio is playing at inside of the local storage
+  // Sets the current time the audio is playing at inside the local storage
   useEffect(() => {
     if (playerData) {
       let timeoutId: NodeJS.Timeout;
@@ -129,7 +129,9 @@ export const Player = () => {
               ...(parsedPlayingData[podcast]?.[season] || {}),
               [episodeNumber]: {
                 time: currentTime,
-                duration: audioRef.current?.duration,
+                duration:
+                  parsedPlayingData[podcast]?.[season]?.[episodeNumber]
+                    ?.duration || audioRef.current?.duration,
               },
             },
           },
@@ -138,15 +140,16 @@ export const Player = () => {
         localStorage.setItem("playing", JSON.stringify(updatedPlayingData));
       };
 
-      const debounceSaveCurrentTime = () => {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(saveCurrentTime, 5000);
-      };
+      // const debounceSaveCurrentTime = () => {
+      //   clearTimeout(timeoutId);
+      //   timeoutId = setTimeout(saveCurrentTime, 5000);
+      // };
 
-      debounceSaveCurrentTime();
+      // debounceSaveCurrentTime();
+      saveCurrentTime();
       return () => {
-        clearTimeout(timeoutId);
         saveCurrentTime();
+        clearTimeout(timeoutId);
       };
     }
   }, [currentTime]);
