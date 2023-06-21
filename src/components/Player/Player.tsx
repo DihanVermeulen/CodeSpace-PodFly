@@ -127,7 +127,7 @@ export const Player = () => {
             ...(parsedPlayingData[podcast] || {}),
             [season]: {
               ...(parsedPlayingData[podcast]?.[season] || {}),
-              [episodeNumber]: { time: currentTime },
+              [episodeNumber]: { time: currentTime, duration: audioRef.current?.duration },
             },
           },
         };
@@ -158,6 +158,7 @@ export const Player = () => {
               <IconButton onClick={handleCloseModal} style={{ zIndex: 1000 }}>
                 <ArrowBack />
               </IconButton>
+              Now listening
               <DropdownMenuPlayer
                 addToFavourites={handleAddEpisodetoFavourites}
               />
