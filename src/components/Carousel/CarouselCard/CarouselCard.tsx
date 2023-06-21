@@ -1,4 +1,10 @@
-import StyledComponents from "./CarouselCard.styled";
+import {
+  BlurredBackground,
+  Card,
+  CardBottomBanner,
+  Description,
+  StyledButtonBase,
+} from "./CarouselCard.styled";
 
 type CarouselCard = {
   title: string;
@@ -8,13 +14,6 @@ type CarouselCard = {
 
 export const CarouselCard = (props: CarouselCard) => {
   const { image, title, genres } = props;
-  const {
-    Card,
-    CardBottomBanner,
-    StyledButtonBase,
-    Description,
-    BlurredBackground,
-  } = StyledComponents;
   return (
     <Card as="li">
       <StyledButtonBase backgroundimage={image}>
