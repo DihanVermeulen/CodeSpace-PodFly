@@ -8,7 +8,7 @@ import GENRES from "../../../constants/genres";
 
 type CarouselCard = {
   title: string;
-  genres: string[];
+  genres: number[];
   image: string;
 };
 
