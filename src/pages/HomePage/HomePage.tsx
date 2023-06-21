@@ -125,12 +125,13 @@ export const HomePage = () => {
         </Stack>
       )}
       <Space height={"1rem"} />
-      {previouslyListenedToEpisodes && (
-        <Box padding={2}>
-          <Typography>Continue listening</Typography>
-          <PreviouslyListenedList data={previouslyListenedToEpisodes} />
-        </Box>
-      )}
+      {previouslyListenedToEpisodes &&
+        previouslyListenedToEpisodes.length > 0 && (
+          <Box padding={2}>
+            <Typography>Continue listening</Typography>
+            <PreviouslyListenedList data={previouslyListenedToEpisodes} />
+          </Box>
+        )}
       <Space height={"1rem"} />
       <Box padding={2}>
         <ViewList data={podcasts} />
