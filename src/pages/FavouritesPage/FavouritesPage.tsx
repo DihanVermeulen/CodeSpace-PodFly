@@ -103,7 +103,9 @@ export const FavouritesPage = () => {
       </Box>
       {session ? (
         phase === "LOADED" && filteredData ? (
-          <FavouritesList data={filteredData} />
+          <Box padding={1}>
+            <FavouritesList data={filteredData} />
+          </Box>
         ) : (
           <Box
             sx={{
@@ -121,7 +123,8 @@ export const FavouritesPage = () => {
         >
           <p>
             Please <Link to={"/signin"}>sign in</Link> or{" "}
-            <Link to={"/signup"}>create an account</Link> to view your added favourites
+            <Link to={"/signup"}>create an account</Link> to view your added
+            favourites
           </p>
         </Box>
       )}
