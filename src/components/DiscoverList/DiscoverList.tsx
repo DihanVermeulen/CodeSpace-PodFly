@@ -1,27 +1,33 @@
-import { useState } from "react";
-import { Podcast } from "../../@types/podcast";
-import { Masonry } from "@mui/lab";
+import { PodcastPreview } from "../../@types/podcast";
+import { Grid } from "@mui/material";
 import { Preview } from "./Preview";
-import StyledComponents from "./DiscoverList.styled";
+import { StyledLink } from "./DiscoverList.styled";
 
 export type DiscoverList = {
-  data: Podcast[];
+  data: PodcastPreview[];
 };
 
 export const DiscoverList = (props: DiscoverList) => {
-  const [data] = useState(props.data);
-  const { StyledLink } = StyledComponents;
+  const { data } = props;
 
   return (
     <>
       {data ? (
-        <Masonry columns={2}>
+        <Grid container columns={{ xs: 2, sm: 3, md: 4 }}>
           {data.map((item, index) => (
-            <StyledLink key={index} to={`/view/${item.id}`}>
-              <Preview title={item.title} image={item.image} />
-            </StyledLink>
+            <Grid
+              key={index}
+              item
+              xs={1}
+              justifyContent={"center"}
+              display={"flex"}
+            >
+              <StyledLink to={`/view/${item.id}`}>
+                <Preview {...item} />
+              </StyledLink>
+            </Grid>
           ))}
-        </Masonry>
+        </Grid>
       ) : (
         <div>loading...</div>
       )}

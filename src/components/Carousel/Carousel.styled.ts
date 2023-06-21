@@ -10,6 +10,7 @@ const Carousel = styled.ul`
   padding-top: 0.3rem;
   padding-bottom: 0.6rem;
   gap: 10px;
+  margin: 0;
 `;
 
 export default { Carousel };

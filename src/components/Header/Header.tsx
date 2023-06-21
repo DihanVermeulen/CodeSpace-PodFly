@@ -1,8 +1,13 @@
-import { IconButton, CssBaseline } from "@mui/material";
-import { Menu, Search, Person } from "@mui/icons-material";
+import { IconButton, CssBaseline, Box } from "@mui/material";
+import { Menu } from "@mui/icons-material";
 import StyledComponents from "./Header.styled";
+import { useLocation } from "react-router-dom";
+import { SearchModal } from "../Search";
+import { DropdownMenuHeader } from "../DropdownMenuHeader";
 
 export const Header = () => {
+  const location = useLocation();
+
   return (
     <>
       <CssBaseline />
@@ -13,13 +18,43 @@ export const Header = () => {
           </IconButton>
         </div>
         <div>
-          <IconButton color="inherit" aria-label="search" sx={{ mr: 2 }}>
-            <Search />
-          </IconButton>
-          <IconButton color="inherit" aria-label="profile" sx={{ mr: 2 }}>
-            <Person />
-          </IconButton>
+          <StyledComponents.LinkBlock>
+            <li>
+              <StyledComponents.StyledLink
+                to={"/"}
+                style={{
+                  color: location.pathname === "/" ? "#AAF1CF" : "",
+                }}
+              >
+                home
+              </StyledComponents.StyledLink>
+            </li>
+            <li>
+              <StyledComponents.StyledLink
+                to={"/discover"}
+                style={{
+                  color: location.pathname === "/discover" ? "#AAF1CF" : "",
+                }}
+              >
+                discover
+              </StyledComponents.StyledLink>
+            </li>
+            <li>
+              <StyledComponents.StyledLink
+                to={"/favourites"}
+                style={{
+                  color: location.pathname === "/favourites" ? "#AAF1CF" : "",
+                }}
+              >
+                favourites
+              </StyledComponents.StyledLink>
+            </li>
+          </StyledComponents.LinkBlock>
         </div>
+        <Box display={"flex"}>
+          <SearchModal />
+          <DropdownMenuHeader />
+        </Box>
       </StyledComponents.Header>
     </>
   );
