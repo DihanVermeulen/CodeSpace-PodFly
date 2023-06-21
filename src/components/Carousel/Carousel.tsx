@@ -21,14 +21,7 @@ export const Carousel = (props: Carousel) => {
     <>
       <StyledComponents.Carousel>
         {phase === "LISTING" &&
-          data.map((item) => (
-            <CarouselCard
-              key={item.id}
-              genres={item.genres}
-              title={item.title}
-              image={item.image}
-            />
-          ))}
+          data.map((item) => <CarouselCard key={item.id} {...item} />)}
       </StyledComponents.Carousel>
     </>
   );
