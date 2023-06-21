@@ -2,12 +2,11 @@ import StyledComponents from "./CarouselCard.styled";
 
 type CarouselCard = {
   title: string;
-  genres: string[];
   image: string;
 };
 
 export const CarouselCard = (props: CarouselCard) => {
-  const { image, title, genres } = props;
+  const { image, title} = props;
   const {
     Card,
     CardBottomBanner,
@@ -22,7 +21,6 @@ export const CarouselCard = (props: CarouselCard) => {
           <BlurredBackground></BlurredBackground>
           <Description>
             <dd style={{ textAlign: "left" }}>{title}</dd>
-            <dt>{genres}</dt>
           </Description>
         </CardBottomBanner>
       </StyledButtonBase>

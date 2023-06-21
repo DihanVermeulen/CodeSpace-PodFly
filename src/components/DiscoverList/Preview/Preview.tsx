@@ -7,6 +7,7 @@ export const Preview = (props: PodcastPreview) => {
   const { image, title, seasons, updated, genres } = props;
   const newGenres = [];
   for (const genre of genres) {
+    // @ts-ignore
     newGenres.push(GENRES[genre]);
   }
   return (

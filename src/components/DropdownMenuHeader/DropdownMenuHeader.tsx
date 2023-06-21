@@ -7,7 +7,7 @@ import {
   Avatar,
 } from "@mui/material";
 import { Login, Logout, Person } from "@mui/icons-material";
-import { useState, ReactElement } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks";
 

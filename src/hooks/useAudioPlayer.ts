@@ -11,7 +11,7 @@ export const useAudioPlayer = () => {
    * a confirmation message is given.
    */
   useEffect(() => {
-    const giveConfirmationMessageBeforeClosing = (event) => {
+    const giveConfirmationMessageBeforeClosing = (event: any) => {
       if (isPlaying) {
         // Cancel the event
         event.preventDefault();

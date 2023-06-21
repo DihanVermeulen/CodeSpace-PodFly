@@ -24,7 +24,6 @@ export const Carousel = (props: Carousel) => {
           data.map((item) => (
             <CarouselCard
               key={item.id}
-              genres={item.genres}
               title={item.title}
               image={item.image}
             />

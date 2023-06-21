@@ -113,7 +113,7 @@ export const Player = () => {
   // Sets the current time the audio is playing at inside of the local storage
   useEffect(() => {
     if (playerData) {
-      let timeoutId;
+      let timeoutId: NodeJS.Timeout;
 
       /** Saves the current time that the audio player is at to local storage */
       const saveCurrentTime = () => {
