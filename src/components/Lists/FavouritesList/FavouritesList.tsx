@@ -28,6 +28,7 @@ import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { createFavouritesActions } from "../../../model";
 import { useAuth } from "../../../hooks";
+import { PrimaryAccordion } from "./FavouritesList.styled";
 
 export type FavouritesList = {
   data: IndividualPodcast[];
@@ -61,7 +62,7 @@ export const FavouritesList = (props: FavouritesList) => {
       });
   };
   return data.map((podcast: IndividualPodcast) => (
-    <Accordion key={podcast.id}>
+    <PrimaryAccordion key={podcast.id}>
       <AccordionSummary
         expandIcon={<ExpandMore />}
         aria-controls="panel1a-content"
@@ -156,7 +157,7 @@ export const FavouritesList = (props: FavouritesList) => {
           </Accordion>
         ))}
       </AccordionDetails>
-    </Accordion>
+    </PrimaryAccordion>
   ));
 };
 
