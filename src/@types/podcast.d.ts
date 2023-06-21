@@ -40,5 +40,6 @@ type IndividualPodcast = {
   id: string;
   title: string;
   image: string;
+  updated: Date;
   seasons: IndividualPodcastSeason[];
 };
