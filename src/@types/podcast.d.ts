@@ -4,7 +4,7 @@ type PodcastPreview = {
   image: string;
   description: string;
   seasons: number;
-  genres: string[];
+  genres: number[];
   updated: Date;
 };
 
