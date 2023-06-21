@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Paper, ButtonBase } from "@mui/material";
 
-const Card = styled(Paper)<{ as: string }>`
+export const Card = styled(Paper)<{ as: string }>`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   min-width: 300px;
   height: 200px;
@@ -11,7 +11,7 @@ const Card = styled(Paper)<{ as: string }>`
   margin-left: 10px;
 `;
 
-const CardBottomBanner = styled.div`
+export const CardBottomBanner = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -29,7 +29,7 @@ const CardBottomBanner = styled.div`
   }
 `;
 
-const StyledButtonBase = styled(ButtonBase)<{ backgroundimage: string }>`
+export const StyledButtonBase = styled(ButtonBase)<{ backgroundimage: string }>`
   display: flex;
   position: relative;
   align-items: center;
@@ -43,11 +43,11 @@ const StyledButtonBase = styled(ButtonBase)<{ backgroundimage: string }>`
   border-radius: 20px;
 `;
 
-const Description = styled.dl`
+export const Description = styled.dl`
   text-align: left;
 `;
 
-const BlurredBackground = styled.div`
+export const BlurredBackground = styled.div`
   filter: blur(8px);
   -webkit-filter: blur(8px);
   height: 100%;
