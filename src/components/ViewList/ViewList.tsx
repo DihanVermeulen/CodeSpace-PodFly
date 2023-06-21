@@ -78,7 +78,7 @@ export const ViewList = (props: ViewList<EpisodeData | PodcastPreview[]>) => {
     return (
       <Box display={"flex"} flexWrap={"wrap"} gap={2}>
         {(data as PodcastPreview[]).map((item) => (
-          <Preview key={item.id} />
+          <Preview key={item.id} {...item} />
         ))}
       </Box>
     );
