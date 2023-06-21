@@ -26,9 +26,9 @@ import {
   getAuthState,
   getModalState,
 } from "../../model";
-import { DropdownMenuPlayer } from "../Dropdowns";
 import { addEpisodeToFavourites } from "../../utils/helpers";
 import { useEffect } from "react";
+import DropdownMenuPlayer from "../DropDowns/DropdownMenuPlayer/DropdownMenuPlayer";
 
 export const Player = () => {
   const { handleCloseModal, handleMaximiseModal } = usePlayer();
@@ -151,12 +151,6 @@ export const Player = () => {
         localStorage.setItem("playing", JSON.stringify(updatedPlayingData));
       };
 
-      // const debounceSaveCurrentTime = () => {
-      //   clearTimeout(timeoutId);
-      //   timeoutId = setTimeout(saveCurrentTime, 5000);
-      // };
-
-      // debounceSaveCurrentTime();
       saveCurrentTime();
       return () => {
         saveCurrentTime();

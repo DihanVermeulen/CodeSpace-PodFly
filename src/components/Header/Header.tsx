@@ -8,8 +8,8 @@ import {
 } from "./Header.styled";
 import { useLocation } from "react-router-dom";
 import { SearchModal } from "../Search";
-import { DropdownMenuHeader } from "../Dropdowns";
 import PodFlyLogo from "../../assets/podfly-logo32x32.png";
+import DropdownMenuHeader from "../DropDowns/DropdownMenuHeader/DropdownMenuHeader";
 
 export const Header = () => {
   const location = useLocation();

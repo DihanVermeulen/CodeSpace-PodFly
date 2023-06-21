@@ -9,7 +9,7 @@ const meta: Meta<Carousel> = {
 
 export default meta;
 
-const list: Carousel["data"] = new Array(3).fill(undefined).map(mocks.basic);
+const list = new Array(3).fill(undefined).map(mocks.basic);
 
 export const Basic = (args: Carousel) => {
   const { data } = args;
