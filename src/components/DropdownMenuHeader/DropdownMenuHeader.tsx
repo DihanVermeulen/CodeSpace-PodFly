@@ -7,7 +7,7 @@ import {
   Avatar,
 } from "@mui/material";
 import { Login, Logout, Person } from "@mui/icons-material";
-import { useState, ReactElement } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks";
 
@@ -38,7 +38,7 @@ export const DropdownMenuHeader = () => {
           onClick={handleClick}
           size="small"
         >
-          <Avatar  sx={{ bgcolor: "purple" }}>
+          <Avatar sx={{ bgcolor: "purple" }}>
             {session.user.email[0].toUpperCase()}
           </Avatar>
         </IconButton>

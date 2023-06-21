@@ -1,11 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { createModalActions, getModalState } from "../model";
 import { useEffect } from "react";
-import {
-  IndividualPodcast,
-  IndividualPodcastEpisode,
-  IndividualPodcastSeason,
-} from "../@types/podcast";
+import { IndividualPodcast } from "../@types/podcast";
 import { fetchIndividualPodcast, findEpisode } from "../utils/helpers";
 
 export const usePlayer = () => {
@@ -45,14 +41,15 @@ export const usePlayer = () => {
                 episode
               );
               if (typeof foundEpisode !== "undefined") {
-                modalActions.updateModalData({
-                  episodeNumber: foundEpisode.episode.episode,
-                  season: season,
-                  episodeTitle: foundEpisode.episode.title,
-                  audioSrc: foundEpisode.episode.file,
-                  image: data.image,
-                  podcast: podcast,
-                });
+                if (!(data instanceof Error))
+                  modalActions.updateModalData({
+                    episodeNumber: foundEpisode.episode.episode,
+                    season: season,
+                    episodeTitle: foundEpisode.episode.title,
+                    audioSrc: foundEpisode.episode.file,
+                    image: data.image,
+                    podcast: podcast,
+                  });
               }
             }
           }
